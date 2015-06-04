@@ -7,7 +7,7 @@ namespace WebAuto.DataAccess.EntityFramework
 {
     public class UserDataAccess : IUserDataAccess
     {
-        private List<User> _users = new List<User>
+        private static List<User> _users = new List<User>
         {
             new User
             {
@@ -53,7 +53,7 @@ namespace WebAuto.DataAccess.EntityFramework
 
         public Task UpdateAsync(User user)
         {
-            throw new NotImplementedException();
+            return Task.FromResult<Object>(null);
         }
     }
 }

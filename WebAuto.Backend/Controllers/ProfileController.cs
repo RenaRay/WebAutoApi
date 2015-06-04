@@ -76,7 +76,13 @@ namespace WebAuto.Backend.Controllers
             user.ContactsVisibleTo = model.ContactsVisibleTo;
             user.Avatar = model.Avatar;
             var cars = model.Cars ?? Enumerable.Empty<CarModel>();
-            user.Cars = cars.Select(car => car.ToDataContract()).ToList();
+            user.Cars = cars
+                .Where(car =>
+                    !string.IsNullOrEmpty(car.Plate) ||
+                    !string.IsNullOrEmpty(car.Model) ||
+                    !string.IsNullOrEmpty(car.Vendor))
+                .Select(car => car.ToDataContract())
+                .ToList();
 
             await _userDataAccess.UpdateAsync(user);
 

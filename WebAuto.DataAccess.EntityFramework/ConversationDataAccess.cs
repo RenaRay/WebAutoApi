@@ -18,7 +18,7 @@ namespace WebAuto.DataAccess.EntityFramework
 
         public Task UpdateConversationsWithEmptyUser(string user, string plate)
         {
-            throw new NotImplementedException();
+            return Task.FromResult<Object>(null);
         }
 
         public Task<Conversation> FindByMembersAsync(List<ConversationMember> members)

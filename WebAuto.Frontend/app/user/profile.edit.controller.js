@@ -39,9 +39,6 @@
             .get(login)
             .then(function (results) {
                 vm.data = results.data;
-                if (vm.data.cars.length == 0) {
-                    vm.addCar();
-                }
             }, function (error) {
                 vm.message = error.data.error_description;
                 vm.savedSuccessfully = false;
@@ -167,7 +164,7 @@
         }
 
         function removeCar(index) {
-            if (vm.data.cars.length <= 1 ||
+            if (vm.data.cars.length == 0 ||
                 index < 0 ||
                 index >= vm.data.cars.length)
             {

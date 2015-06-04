@@ -5,10 +5,6 @@ namespace WebAuto.Backend.Models
 {
     public class CarModel
     {
-        [Required(
-            ErrorMessageResourceType = typeof(Resources),
-            ErrorMessageResourceName = "ValidationCarPlateRequired",
-            AllowEmptyStrings = false)]
         [StringLength(
             10,
             ErrorMessageResourceType = typeof(Resources),
