@@ -58,22 +58,16 @@ namespace WebAuto.Backend.Controllers
             avatar.Content = await content.ReadAsByteArrayAsync();
             await _avatarDataAccess.CreateAsync(avatar);
 
-            user.Avatar = avatar.Id;
+            user.AvatarId = avatar.Id;
             await _userDataAccess.UpdateAsync(user);
 
             return Ok(new { avatar.Id });
         }
 
         [AllowAnonymous]
-        public async Task<HttpResponseMessage> Get(string id)
+        public async Task<HttpResponseMessage> Get(int id)
         {
             var result = new HttpResponseMessage();
-            if (string.IsNullOrEmpty(id))
-            {
-                result.StatusCode = HttpStatusCode.BadRequest;
-                result.Content = new StringContent("id was expected");
-                return result;
-            }
             Avatar avatar = await _avatarDataAccess.FindByIdAsync(id);
             if (avatar == null)
             {

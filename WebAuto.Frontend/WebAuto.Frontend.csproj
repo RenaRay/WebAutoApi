@@ -59,11 +59,6 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="app\chat\chat.list.controller.js" />
-    <Content Include="app\chat\chat.view.html" />
-    <Content Include="app\chat\chat.controller.js" />
-    <Content Include="app\chat\module.js" />
-    <Content Include="app\chat\list.view.html" />
     <Content Include="app\filters\avatar.js" />
     <Content Include="app\home\welcome.controller.js" />
     <Content Include="app\home\welcome.view.html" />
@@ -78,7 +73,7 @@
     <Content Include="app\app.js" />
     <Content Include="app\home\home.controller.js" />
     <Content Include="app\home\home.view.html" />
-    <Content Include="app\services\conversation.js" />
+    <Content Include="app\services\message.js" />
     <Content Include="app\services\profile.js" />
     <Content Include="app\services\authentication.js" />
     <Content Include="app\user\profile.view.html" />

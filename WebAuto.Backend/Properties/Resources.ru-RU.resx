@@ -123,32 +123,11 @@
   <data name="ValidationCarModelStringLength" xml:space="preserve">
     <value>Длина модели автомобиля не должна превышать 64 символа.</value>
   </data>
-  <data name="ValidationCarPlateRequired" xml:space="preserve">
-    <value>Регистрационный номер обязателен для заполнения.</value>
-  </data>
   <data name="ValidationCarPlateStringLength" xml:space="preserve">
     <value>Длина регистрационного номера не должна превышать 10 символов.</value>
   </data>
   <data name="ValidationCarVendorStringLength" xml:space="preserve">
     <value>Длина марки автомобиля не должна превышать 64 символа.</value>
-  </data>
-  <data name="ValidationConversationFromPlateRequired" xml:space="preserve">
-    <value>Поле "От кого" обязательно для заполнения.</value>
-  </data>
-  <data name="ValidationConversationFromPlateStringLength" xml:space="preserve">
-    <value>Длина поля "От кого" не должна превышать 10 символов.</value>
-  </data>
-  <data name="ValidationConversationMessageRequired" xml:space="preserve">
-    <value>Сообщение обязательно для заполнения.</value>
-  </data>
-  <data name="ValidationConversationMessageStringLength" xml:space="preserve">
-    <value>Длина сообщения не должна превышать 256 символов.</value>
-  </data>
-  <data name="ValidationConversationToPlateRequired" xml:space="preserve">
-    <value>Поле "Кому" обязательно для заполнения.</value>
-  </data>
-  <data name="ValidationConversationToPlateStringLength" xml:space="preserve">
-    <value>Длина поля "Кому" не должна превышать 10 символов.</value>
   </data>
   <data name="ValidationEmailStringLength" xml:space="preserve">
     <value>Длина email-адреса не должна превышать 64 символа.</value>
@@ -173,6 +152,18 @@
   </data>
   <data name="ValidationLoginStringLength" xml:space="preserve">
     <value>Длина логина должна быть между 6 и 16 символами.</value>
+  </data>
+  <data name="ValidationMessageTextRequired" xml:space="preserve">
+    <value>Сообщение обязательно для заполнения.</value>
+  </data>
+  <data name="ValidationMessageTextStringLength" xml:space="preserve">
+    <value>Длина сообщения не должна превышать 256 символов.</value>
+  </data>
+  <data name="ValidationMessageToPlateRequired" xml:space="preserve">
+    <value>Поле "Кому" обязательно для заполнения.</value>
+  </data>
+  <data name="ValidationMessageToPlateStringLength" xml:space="preserve">
+    <value>Длина поля "Кому" не должна превышать 10 символов.</value>
   </data>
   <data name="ValidationPasswordConfirmationCompare" xml:space="preserve">
     <value>Пароль и его подтверждение не совпадают.</value>

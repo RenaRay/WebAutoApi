@@ -5,7 +5,7 @@ namespace WebAuto.DataAccess.EntityFramework
 {
     public class AvatarDataAccess : IAvatarDataAccess
     {
-        public Task<Avatar> FindByIdAsync(string id)
+        public Task<Avatar> FindByIdAsync(int id)
         {
             throw new NotImplementedException();
         }

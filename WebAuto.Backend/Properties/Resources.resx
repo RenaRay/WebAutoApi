@@ -123,32 +123,11 @@
   <data name="ValidationCarModelStringLength" xml:space="preserve">
     <value>Car model name length must not exceed 64 letters.</value>
   </data>
-  <data name="ValidationCarPlateRequired" xml:space="preserve">
-    <value>Car plate is required.</value>
-  </data>
   <data name="ValidationCarPlateStringLength" xml:space="preserve">
     <value>Car plate length must not exceed 10 letters.</value>
   </data>
   <data name="ValidationCarVendorStringLength" xml:space="preserve">
     <value>Car vendor name length must not exceed 64 letters.</value>
-  </data>
-  <data name="ValidationConversationFromPlateRequired" xml:space="preserve">
-    <value>From is required.</value>
-  </data>
-  <data name="ValidationConversationFromPlateStringLength" xml:space="preserve">
-    <value>From length must not exceed 10 letters.</value>
-  </data>
-  <data name="ValidationConversationMessageRequired" xml:space="preserve">
-    <value>Message is required.</value>
-  </data>
-  <data name="ValidationConversationMessageStringLength" xml:space="preserve">
-    <value>Message length must not exceed 256 letters.</value>
-  </data>
-  <data name="ValidationConversationToPlateRequired" xml:space="preserve">
-    <value>To is required.</value>
-  </data>
-  <data name="ValidationConversationToPlateStringLength" xml:space="preserve">
-    <value>To length must not exceed 10 letters.</value>
   </data>
   <data name="ValidationEmailStringLength" xml:space="preserve">
     <value>Email length must not exceed 64 letters.</value>
@@ -173,6 +152,18 @@
   </data>
   <data name="ValidationLoginStringLength" xml:space="preserve">
     <value>Login length must be between 6 and 16 letters.</value>
+  </data>
+  <data name="ValidationMessageTextRequired" xml:space="preserve">
+    <value>Message is required.</value>
+  </data>
+  <data name="ValidationMessageTextStringLength" xml:space="preserve">
+    <value>Message length must not exceed 256 letters.</value>
+  </data>
+  <data name="ValidationMessageToPlateRequired" xml:space="preserve">
+    <value>To is required.</value>
+  </data>
+  <data name="ValidationMessageToPlateStringLength" xml:space="preserve">
+    <value>To length must not exceed 10 letters.</value>
   </data>
   <data name="ValidationPasswordConfirmationCompare" xml:space="preserve">
     <value>Password and its confirmation do not match.</value>

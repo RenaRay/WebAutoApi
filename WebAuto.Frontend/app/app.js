@@ -8,8 +8,7 @@
             'angular-loading-bar',
 
             'app.home',
-            'app.user',
-            'app.chat'
+            'app.user'
         ])
         .config(routes)
         .config(http)

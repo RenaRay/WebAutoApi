@@ -4,7 +4,7 @@ namespace WebAuto.DataAccess
 {
     public interface IAvatarDataAccess
     {
-        Task<Avatar> FindByIdAsync(string id);
+        Task<Avatar> FindByIdAsync(int id);
 
         Task CreateAsync(Avatar avatar);
     }

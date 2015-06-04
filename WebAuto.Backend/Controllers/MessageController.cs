@@ -13,90 +13,54 @@ namespace WebAuto.Backend.Controllers
     public class MessageController : ApiController
     {
         private readonly IUserDataAccess _userDataAccess;
-        private readonly IConversationDataAccess _conversationDataAccess;
+        private readonly IMessageDataAccess _messageDataAccess;
 
         public MessageController(
             IUserDataAccess userDataAccess,
-            IConversationDataAccess conversationDataAccess)
+            IMessageDataAccess messageDataAccess)
         {
             if (userDataAccess == null)
             {
                 throw new ArgumentNullException("userDataAccess");
             }
-            if (conversationDataAccess == null)
+            if (messageDataAccess == null)
             {
-                throw new ArgumentNullException("conversationDataAccess");
+                throw new ArgumentNullException("messageDataAccess");
             }
             _userDataAccess = userDataAccess;
-            _conversationDataAccess = conversationDataAccess;
+            _messageDataAccess = messageDataAccess;
         }
 
         [Authorize]
-        [Route("")]
         [HttpPost]
-        public async Task<IHttpActionResult> Post(PostMessageModel model)
+        public async Task<IHttpActionResult> Send(SendMessageModel model)
         {
-            var conversation = await _conversationDataAccess.FindByIdAsync(model.ConversationId);
-            if (conversation == null)
+            if (!ModelState.IsValid)
             {
-                return NotFound();
+                return BadRequest(ModelState);
             }
 
-            var currentUserLogin = User.Identity.Name;
-            var currentUser = await _userDataAccess.FindByLoginAsync(currentUserLogin);
+            var currentUser = await _userDataAccess.FindByLoginAsync(User.Identity.Name);
             if (currentUser == null)
             {
                 return Unauthorized();
             }
 
-            if (!conversation.Members.Any(m => m.User == currentUser.Id))
-            {
-                return Unauthorized();
-            }
+            var toUser = await _userDataAccess.FindByPlateExactAsync(model.ToPlate);
 
-            var conversationMessage =
-                new ConversationMessage
+            var message =
+                new Message
                 {
-                    Author = currentUser.Id,
-                    Posted = DateTime.UtcNow,
-                    Text = model.Message
+                    FromUserId = currentUser.Id,
+                    Icons = new List<int>(),
+                    IsLiked = false,
+                    IsRead = false,
+                    Sent = DateTime.UtcNow,
+                    Text = model.Text,
+                    ToPlate = model.ToPlate,
+                    ToUserId = toUser != null ? toUser.Id : (int?)null
                 };
-
-            await _conversationDataAccess.PostMessageAsync(
-                model.ConversationId, conversationMessage);
-            return Ok();
-        }
-
-        [Authorize]
-        [Route("unread")]
-        [HttpGet]
-        public async Task<IHttpActionResult> GetUnreadCount()
-        {
-            var currentUserLogin = User.Identity.Name;
-            var currentUser = await _userDataAccess.FindByLoginAsync(currentUserLogin);
-            if (currentUser == null)
-            {
-                return Unauthorized();
-            }
-
-            var count = await _conversationDataAccess.GetTotalUnreadCountAsync(currentUser.Id);
-
-            return Ok(new {count});
-        }
-
-        [Authorize]
-        [Route("read")]
-        [HttpPost]
-        public async Task<IHttpActionResult> Read(ReadMessagesModel model)
-        {
-            var currentUserLogin = User.Identity.Name;
-            var currentUser = await _userDataAccess.FindByLoginAsync(currentUserLogin);
-            if (currentUser == null)
-            {
-                return Unauthorized();
-            }
-
-            await _conversationDataAccess.ReadMessages(model.ConversationId, currentUser.Id, model.MessageCount);
+            await _messageDataAccess.CreateAsync(message);
 
             return Ok();
         }

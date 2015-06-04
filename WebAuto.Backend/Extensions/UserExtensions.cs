@@ -20,7 +20,7 @@ namespace WebAuto.Backend.Extensions
                     FirstName = user.FirstName,
                     LastName = user.LastName,
                     ContactsVisibleTo = user.ContactsVisibleTo,
-                    Avatar = user.Avatar,
+                    Avatar = user.AvatarId,
                     Cars = cars.Select(car => car.ToModel()).ToList()
                 };
             //TODO: when friends will be implemented, add condition for ContactsVisibility.Friends

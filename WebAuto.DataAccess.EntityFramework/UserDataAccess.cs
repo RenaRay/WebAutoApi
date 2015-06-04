@@ -13,9 +13,10 @@ namespace WebAuto.DataAccess.EntityFramework
             {
                 Login = "test",
                 PasswordHash = "n4bQgYhMfWWaL+qgxVrQFaO/TxsrC4Is0V1sFbDwCgg=",
-
             }
         };
+
+        private static int _identity = 0;
 
         public Task<User> FindByLoginAsync(string login)
         {
@@ -25,28 +26,23 @@ namespace WebAuto.DataAccess.EntityFramework
 
         public Task<User> FindByLoginAndPasswordHashAsync(string login, string passwordHash)
         {
-            var user = _users.FirstOrDefault(u => u.Login == login && u.PasswordHash == passwordHash);
+            var user = _users.FirstOrDefault(u =>
+                u.Login == login &&
+                u.PasswordHash == passwordHash);
             return Task.FromResult(user);
         }
 
-        public Task<List<User>> FindByIdsAsync(string[] ids)
+        public Task<User> FindByPlateExactAsync(string plate)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<List<User>> FindByPlatePartAsync(string plate, int limit)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<List<User>> FindByPlateExactAsync(string plate)
-        {
-            throw new NotImplementedException();
+            var user = _users.FirstOrDefault(u =>
+                u.Cars != null &&
+                u.Cars.Any(car => string.Equals(car.Plate, plate, StringComparison.CurrentCultureIgnoreCase)));
+            return Task.FromResult(user);
         }
 
         public Task CreateAsync(User user)
         {
-            user.Id = Guid.NewGuid().ToString();
+            user.Id = _identity++;
             _users.Add(user);
             return Task.FromResult<Object>(null);
         }

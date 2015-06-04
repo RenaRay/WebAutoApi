@@ -118,7 +118,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\ConfigurationController.cs" />
-    <Compile Include="Controllers\ConversationController.cs" />
     <Compile Include="Controllers\AvatarController.cs" />
     <Compile Include="Controllers\MessageController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -129,13 +128,7 @@
     <Compile Include="Middleware\GlobalizationMiddlewareOptions.cs" />
     <Compile Include="Models\CarModel.cs" />
     <Compile Include="Models\ConfigurationModel.cs" />
-    <Compile Include="Models\ConversationListItemModel.cs" />
-    <Compile Include="Models\ConversationMemberModel.cs" />
-    <Compile Include="Models\ConversationMessageModel.cs" />
-    <Compile Include="Models\ConversationModel.cs" />
-    <Compile Include="Models\NewConversationModel.cs" />
-    <Compile Include="Models\PostMessageModel.cs" />
-    <Compile Include="Models\ReadMessagesModel.cs" />
+    <Compile Include="Models\SendMessageModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Models\UserProfileModel.cs" />
     <Compile Include="Properties\Settings.Designer.cs">

@@ -6,14 +6,14 @@
         .controller('app.menu.controller', [
             '$location',
             'app.services.authentication',
-            'app.services.conversation',
+            'app.services.message',
             main
         ]);
 
-    function main($location, authentication, conversation) {
+    function main($location, authentication, message) {
         var vm = this;
         vm.authentication = authentication.status;
-        vm.conversation = conversation.state;
+        vm.message = message.state;
         vm.logout = logout;
 
         

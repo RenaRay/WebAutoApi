@@ -5,7 +5,7 @@ namespace WebAuto.DataAccess
 {
     public class User
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         public string Login { get; set; }
 
@@ -21,7 +21,7 @@ namespace WebAuto.DataAccess
 
         public ContactsVisibility ContactsVisibleTo { get; set; }
 
-        public string Avatar { get; set; }
+        public int? AvatarId { get; set; }
 
         public List<Car> Cars { get; set; }
     }

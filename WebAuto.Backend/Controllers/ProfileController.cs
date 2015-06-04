@@ -15,12 +15,10 @@ namespace WebAuto.Backend.Controllers
     {
         private readonly IUserDataAccess _userDataAccess;
         private readonly IAvatarDataAccess _avatarDataAccess;
-        private readonly IConversationDataAccess _conversationDataAccess;
 
         public ProfileController(
             IUserDataAccess userDataAccess,
-            IAvatarDataAccess avatarDataAccess,
-            IConversationDataAccess conversationDataAccess)
+            IAvatarDataAccess avatarDataAccess)
         {
             if (userDataAccess == null)
             {
@@ -30,13 +28,8 @@ namespace WebAuto.Backend.Controllers
             {
                 throw new ArgumentNullException("avatarDataAccess");
             }
-            if (conversationDataAccess == null)
-            {
-                throw new ArgumentNullException("conversationDataAccess");
-            }
             _userDataAccess = userDataAccess;
             _avatarDataAccess = avatarDataAccess;
-            _conversationDataAccess = conversationDataAccess;
         }
         
         //http://localhost/api/profile/test
@@ -74,7 +67,7 @@ namespace WebAuto.Backend.Controllers
             user.Email = model.Email;
             user.Phone = model.Phone;
             user.ContactsVisibleTo = model.ContactsVisibleTo;
-            user.Avatar = model.Avatar;
+            user.AvatarId = model.Avatar;
             var cars = model.Cars ?? Enumerable.Empty<CarModel>();
             user.Cars = cars
                 .Where(car =>
@@ -85,14 +78,7 @@ namespace WebAuto.Backend.Controllers
                 .ToList();
 
             await _userDataAccess.UpdateAsync(user);
-
-            var plates = user.Cars
-                .Select(c => c.Plate);
-            foreach(var plate in plates)
-            {
-                await _conversationDataAccess.UpdateConversationsWithEmptyUser(user.Id, plate);
-            }
-
+            
             return Ok();
         }
     }

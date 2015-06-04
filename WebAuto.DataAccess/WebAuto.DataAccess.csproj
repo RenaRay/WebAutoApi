@@ -40,12 +40,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Car.cs" />
-    <Compile Include="Conversation.cs" />
-    <Compile Include="ConversationMember.cs" />
-    <Compile Include="ConversationMessage.cs" />
-    <Compile Include="IConversationDataAccess.cs" />
+    <Compile Include="IMessageDataAccess.cs" />
     <Compile Include="IUserDataAccess.cs" />
     <Compile Include="IAvatarDataAccess.cs" />
+    <Compile Include="Message.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Avatar.cs" />

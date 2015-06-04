@@ -41,7 +41,7 @@ namespace WebAuto.Backend.Models
 
         public ContactsVisibility ContactsVisibleTo { get; set; }
 
-        public string Avatar { get; set; }
+        public int? Avatar { get; set; }
 
         public List<CarModel> Cars { get; set; }
     }

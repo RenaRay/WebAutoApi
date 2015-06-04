@@ -61,42 +61,5 @@ namespace WebAuto.Backend.Controllers
 
             return Ok();
         }
-
-        [Authorize]
-        [Route("find")]
-        [HttpGet]
-        public async Task<IHttpActionResult> Find(string plate, bool matchExact)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            List<User> users;
-            if (matchExact)
-            {
-                users = await _userDataAccess.FindByPlateExactAsync(plate);
-            }
-            else
-            {
-                users = await _userDataAccess.FindByPlatePartAsync(plate, Settings.Default.UserFindByPlateLimit);
-            }
-            var currentUserLogin = User.Identity.Name;
-            List<ConversationMemberModel> conversationMembers = users
-                .Select(u => new ConversationMemberModel
-                {
-                    User = new UserModel
-                    {
-                        Login = u.Login,
-                        FirstName = u.FirstName,
-                        LastName = u.LastName,
-                        Avatar = u.Avatar
-                    },
-                    Car = u.Cars.FirstOrDefault(c => c.Plate.Contains(plate)).ToModel()
-                })
-                .ToList();
-
-            return Ok(conversationMembers);
-        }
     }
 }

@@ -2,7 +2,7 @@
 {
     public class Avatar
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         public byte[] Content { get; set; }
 

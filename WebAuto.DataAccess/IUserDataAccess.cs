@@ -9,11 +9,7 @@ namespace WebAuto.DataAccess
 
         Task<User> FindByLoginAndPasswordHashAsync(string login, string passwordHash);
 
-        Task<List<User>> FindByIdsAsync(string[] ids);
-
-        Task<List<User>> FindByPlatePartAsync(string plate, int limit);
-
-        Task<List<User>> FindByPlateExactAsync(string plate);
+        Task<User> FindByPlateExactAsync(string plate);
 
         Task CreateAsync(User user);
 
