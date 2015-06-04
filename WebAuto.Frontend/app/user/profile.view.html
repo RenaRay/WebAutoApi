@@ -1,0 +1,28 @@
+﻿<div class="container" data-ng-controller="app.user.profile.view.controller as vm">
+    <h1 class="page-header">{{vm.data.firstName}} {{vm.data.lastName}}</h1>
+
+    <div class="row">
+        <div class="col-md-4 col-sm-6 col-xs-10 col-md-offset-4 col-sm-offset-3 col-xs-offset-1">
+            <div class="form-group text-center">
+                <img ng-attr-src="{{vm.data.avatar | avatar}}" class="img-circle img-thumbnail">
+            </div>
+            <div class="text-center">
+                {{vm.data.phone}}
+            </div>
+            <div class="text-center">
+                <a href="mailto:{{vm.data.email}}">{{vm.data.email}}</a>
+            </div>
+            <div class="text-center" ng-repeat="car in vm.data.cars">
+                <span>{{car.vendor}}</span> <span>{{car.model}}</span> <span>{{car.plate}}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" data-ng-hide="!vm.isMine">
+        <div class="col-md-4 col-sm-6 col-xs-10 col-md-offset-4 col-sm-offset-3 col-xs-offset-1">
+            <div class="text-center">
+                <a href="#/profile">Редактировать</a>
+            </div>
+        </div>
+    </div>
+</div>

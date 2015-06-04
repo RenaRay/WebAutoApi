@@ -1,0 +1,97 @@
+﻿<div class="container" data-ng-controller="app.user.profile.edit.controller as vm">
+    <h1 class="page-header">Редактирование профиля</h1>
+
+    <div class="row">
+
+        <div class="col-md-4 col-sm-6 col-xs-10 col-md-offset-0 col-sm-offset-3 col-xs-offset-1">
+            <div class="form-group">
+                <h3 class="page-header">Фото</h3>
+            </div>
+            <div class="form-group text-center">
+                <div ngf-drop ngf-select ng-model="vm.files" class="avatar-drop" ngf-drag-over-class="avatar-drop-dragover" accept="image/*" ngf-change="vm.onFilesChanged($files)">
+                    <img data-ng-hide="vm.files.length == 0" ngf-src="vm.files[0]" class="img-circle img-thumbnail">
+                    <img data-ng-hide="vm.files.length != 0" ng-attr-src="{{vm.data.avatar | avatar}}" class="img-circle img-thumbnail">
+                </div>
+
+                <h6><a href="#" ngf-select ng-model="vm.files" ngf-change="vm.onFilesChanged($files)">выберите другой файл</a> или перетащите на область с картинкой...</h6>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-sm-6 col-xs-10 col-md-offset-0 col-sm-offset-3 col-xs-offset-1">
+            <div class="form-group">
+                <h3 class="page-header">Личная информация</h3>
+            </div>
+            <div class="form-group">
+                <h4>Имя:</h4>
+                <input class="form-control" type="text" data-ng-model="vm.data.firstName">
+            </div>
+            <div class="form-group">
+                <h4>Фамилия:</h4>
+                <input class="form-control" type="text" data-ng-model="vm.data.lastName">
+            </div>
+            <div class="form-group">
+                <h4>Email:</h4>
+                <input class="form-control" type="text" data-ng-model="vm.data.email">
+            </div>
+            <div class="form-group">
+                <h4>Телефон:</h4>
+                <input class="form-control" type="text" data-ng-model="vm.data.phone">
+            </div>
+            <div class="form-group">
+                <h4>Контакты:</h4>
+                <div class="ui-select">
+                    <select class="form-control" data-ng-model="vm.data.contactsVisibleTo">
+                        <option value="0">Доступны всем</option>
+                        <option value="1">Недоступны никому</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-sm-6 col-xs-10 col-md-offset-0 col-sm-offset-3 col-xs-offset-1">
+            <div class="form-group">
+                <h3 class="page-header">Автомобили</h3>
+            </div>
+
+            <div ng-repeat="car in vm.data.cars">
+                <div class="form-group">
+                    <h4>Регистрационный номер:</h4>
+                    <input class="form-control" type="text" data-ng-model="car.plate">
+                </div>
+                <div class="form-group">
+                    <h4>Марка:</h4>
+                    <input class="form-control" type="text" data-ng-model="car.vendor">
+                </div>
+                <div class="form-group">
+                    <h4>Модель:</h4>
+                    <input class="form-control" type="text" data-ng-model="car.model">
+                </div>
+
+                <div class="form-group">
+                    <input class="btn btn-xs btn-info" value="Удалить" type="button" data-ng-click="vm.removeCar($index)" data-ng-hide="vm.data.cars.length <= 1">
+                    <input class="btn btn-xs btn-info pull-right" value="Добавить" type="button" data-ng-click="vm.addCar()" data-ng-hide="!$last">
+                    <span class="clearfix"></span>
+                </div>
+
+                <hr data-ng-hide="$last" />
+            </div>
+        </div>
+
+        <div class="col-md-12 col-sm-6 col-xs-10 col-md-offset-0 col-sm-offset-3 col-xs-offset-1">
+            <hr>
+        </div>
+
+        <div class="col-md-4 col-sm-6 col-xs-10 col-md-offset-4 col-sm-offset-3 col-xs-offset-1">
+            <div class="form-group">
+                <input class="btn btn-lg btn-info btn-block" value="Сохранить изменения" type="button" data-ng-click="vm.save()">
+            </div>
+            <div class="form-group">
+                <div class="alert alert-danger" data-ng-hide="vm.message == ''" data-ng-class="(vm.savedSuccessfully) ? 'alert alert-success' : 'alert alert-danger'">
+                    {{vm.message}}
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

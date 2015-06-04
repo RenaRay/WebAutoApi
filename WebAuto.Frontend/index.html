@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta content="IE=edge, chrome=1" http-equiv="X-UA-Compatible" />
+    <title>WebAuto-Title-ReplaceMe</title>
+    <link href="content/css/bootstrap.min.css?v=1" rel="stylesheet" />
+    <link href="content/css/loading-bar.css?v=1" rel="stylesheet" />
+    <link href="content/css/site.css?v=1" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+</head>
+<body>
+
+    <div ng-view></div>
+
+    <div class="navbar navbar-inverse navbar-fixed-bottom" role="navigation" data-ng-controller="app.menu.controller as vm">
+        <div class="container">
+            <div class="navbar-header">
+                <button class="navbar-toggle" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse bottom-collapse" ng-class="{'in':!navCollapsed}">
+                <ul class="nav navbar-nav navbar">
+                    <li data-ng-hide="!vm.authentication.isAuthenticated"><a href="#/home">Главная</a></li>
+                    <li data-ng-hide="!vm.authentication.isAuthenticated"><a href="#/profile/{{vm.authentication.login}}">Профиль</a></li>
+                    <li data-ng-hide="!vm.authentication.isAuthenticated"><a href="#/chats">Чаты <span class="badge ng-hide" ng-hide="vm.conversation.unreadCount == 0">{{vm.conversation.unreadCount}}</span></a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li data-ng-hide="!vm.authentication.isAuthenticated"><a href="" data-ng-click="vm.logout()">Выход</a></li>
+                    <li data-ng-hide="vm.authentication.isAuthenticated"><a href="#/login">Вход</a></li>
+                    <li data-ng-hide="vm.authentication.isAuthenticated"><a href="#/register">Регистрация</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 3rd party libraries -->
+    <script src="scripts/array.extensions.js?v=1"></script>
+    <script src="scripts/angular.js?v=1"></script>
+    <script src="scripts/angular-route.js?v=1"></script>
+    <script src="scripts/angular-local-storage.js?v=1"></script>
+    <script src="scripts/loading-bar.js?v=1"></script>
+    <script src="scripts/ng-file-upload.js?v=1"></script>
+    <script src="scripts/ui-bootstrap-tpls-0.13.0.js?v=1"></script>
+    <!-- Load app main script -->
+    <script src="app/app.js?v=1"></script>
+    <script src="app/config.js?v=1"></script>
+    <script src="app/home/module.js?v=1"></script>
+    <script src="app/user/module.js?v=1"></script>
+    <script src="app/chat/module.js?v=1"></script>
+    <!-- Load services -->
+    <script src="app/services/authentication.js?v=1"></script>
+    <script src="app/services/profile.js?v=1"></script>
+    <script src="app/services/conversation.js?v=1"></script>
+    <!-- Load interceptors -->
+    <script src="app/interceptors/noresponse.js?v=1"></script>
+    <script src="app/interceptors/globalization.js?v=1"></script>
+    <script src="app/interceptors/authentication.js?v=1"></script>
+    <script src="app/interceptors/modelstate.js?v=1"></script>
+    <script src="app/interceptors/internal-error.js?v=1"></script>
+    <!-- Load controllers -->
+    <script src="app/home/home.controller.js?v=1"></script>
+    <script src="app/home/welcome.controller.js?v=1"></script>
+    <script src="app/menu/controller.js?v=1"></script>
+    <script src="app/user/login.controller.js?v=1"></script>
+    <script src="app/user/register.controller.js?v=1"></script>
+    <script src="app/user/profile.edit.controller.js?v=1"></script>
+    <script src="app/user/profile.view.controller.js?v=1"></script>
+    <script src="app/chat/chat.controller.js?v=1"></script>
+    <script src="app/chat/chat.list.controller.js?v=1"></script>
+    <!-- Load custom filters -->
+    <script src="app/filters/avatar.js?v=1"></script>
+    <!-- Load custom directives -->
+</body>
+</html>

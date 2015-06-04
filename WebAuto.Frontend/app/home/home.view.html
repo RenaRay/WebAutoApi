@@ -1,0 +1,49 @@
+﻿<div class="container" data-ng-controller="app.home.controller as vm">
+    <h1 class="page-header">Отправить сообщение</h1>
+
+    <div class="row">
+        <div class="col-md-4 col-sm-6 col-xs-10 col-md-offset-4 col-sm-offset-3 col-xs-offset-1">
+
+            <div class="form-group" data-ng-hide="vm.plates.length == 1">
+                <h4>От кого:</h4>
+                <div class="ui-select">
+                    <select class="form-control" data-ng-model="vm.fromPlate">
+                        <option ng-repeat="plate in vm.plates" value="{{plate}}">{{plate}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <h4>Кому:</h4>
+                <input type="text" class="form-control" placeholder="А777АА77" required autofocus data-ng-model="vm.to" typeahead="user as user.car.plate for user in vm.findUsers($viewValue)" typeahead-template-url="findusers.template.html">
+                
+                <script type="text/ng-template" id="findusers.template.html">
+                    <a class="user-find-match">
+                        <img class="img-circle img-thumbnail img-circle-small" ng-attr-src="{{match.model.avatar | avatar}}">
+                        <div class="user-find-match-car">
+                            <span>{{match.model.name}}</span>
+                            <div>
+                                <span>{{match.model.car.vendor}} {{match.model.car.model}}</span>
+                                <span bind-html-unsafe="match.model.car.plate | typeaheadHighlight:query"></span>
+                            </div>
+                        </div>
+                    </a>
+                </script>
+
+            </div>
+            <div class="form-group">
+                <h4>Текст сообщения:</h4>
+                <textarea class="form-control" rows="5" ng-model="vm.text"></textarea>
+            </div>
+
+            <div class="form-group">
+                <input class="btn btn-lg btn-info btn-block" value="Отправить" type="button" data-ng-click="vm.send()">
+            </div>
+            <div class="form-group">
+                <div class="alert alert-danger" data-ng-hide="vm.message == ''" data-ng-class="(vm.savedSuccessfully) ? 'alert alert-success' : 'alert alert-danger'">
+                    {{vm.message}}
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

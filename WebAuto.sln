@@ -1,0 +1,62 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAuto.Backend", "WebAuto.Backend\WebAuto.Backend.csproj", "{A6742020-38C5-478B-B6A6-955F161F7E0F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{9908B562-5378-4DC0-888F-E4A300081E54}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAuto.Backend.Tests", "WebAuto.Backend.Tests\WebAuto.Backend.Tests.csproj", "{59D3C1E5-8FBA-4A50-BA6A-3451B09577EB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAuto.DataAccess", "WebAuto.DataAccess\WebAuto.DataAccess.csproj", "{B6920D61-9C40-46C6-B619-1C37449010C7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAuto.Frontend", "WebAuto.Frontend\WebAuto.Frontend.csproj", "{67DC7E23-49CC-4A6D-9728-27939EFA9AC4}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A6742020-38C5-478B-B6A6-955F161F7E0F} = {A6742020-38C5-478B-B6A6-955F161F7E0F}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAuto.Common", "WebAuto.Common\WebAuto.Common.csproj", "{9A6D2F99-5AD8-49A6-B5DB-BB2A7443EC64}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAuto.DataAccess.EntityFramework", "WebAuto.DataAccess.EntityFramework\WebAuto.DataAccess.EntityFramework.csproj", "{7793E631-3DAE-4CD7-A098-70044D7D44AF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A6742020-38C5-478B-B6A6-955F161F7E0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6742020-38C5-478B-B6A6-955F161F7E0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6742020-38C5-478B-B6A6-955F161F7E0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6742020-38C5-478B-B6A6-955F161F7E0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59D3C1E5-8FBA-4A50-BA6A-3451B09577EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59D3C1E5-8FBA-4A50-BA6A-3451B09577EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59D3C1E5-8FBA-4A50-BA6A-3451B09577EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59D3C1E5-8FBA-4A50-BA6A-3451B09577EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6920D61-9C40-46C6-B619-1C37449010C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6920D61-9C40-46C6-B619-1C37449010C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6920D61-9C40-46C6-B619-1C37449010C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6920D61-9C40-46C6-B619-1C37449010C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67DC7E23-49CC-4A6D-9728-27939EFA9AC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67DC7E23-49CC-4A6D-9728-27939EFA9AC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67DC7E23-49CC-4A6D-9728-27939EFA9AC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67DC7E23-49CC-4A6D-9728-27939EFA9AC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A6D2F99-5AD8-49A6-B5DB-BB2A7443EC64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A6D2F99-5AD8-49A6-B5DB-BB2A7443EC64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A6D2F99-5AD8-49A6-B5DB-BB2A7443EC64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A6D2F99-5AD8-49A6-B5DB-BB2A7443EC64}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7793E631-3DAE-4CD7-A098-70044D7D44AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7793E631-3DAE-4CD7-A098-70044D7D44AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7793E631-3DAE-4CD7-A098-70044D7D44AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7793E631-3DAE-4CD7-A098-70044D7D44AF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
