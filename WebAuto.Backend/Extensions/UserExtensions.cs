@@ -19,13 +19,11 @@ namespace WebAuto.Backend.Extensions
                 {
                     FirstName = user.FirstName,
                     LastName = user.LastName,
-                    ContactsVisibleTo = user.ContactsVisibleTo,
                     Avatar = user.AvatarId,
                     Cars = cars.Select(car => car.ToModel()).ToList()
                 };
-            //TODO: when friends will be implemented, add condition for ContactsVisibility.Friends
-            if (currentUserLogin == user.Login ||
-                user.ContactsVisibleTo == Common.ContactsVisibility.Everyone)
+            
+            if (currentUserLogin == user.Login)
             {
                 profile.Phone = user.Phone;
                 profile.Email = user.Email;

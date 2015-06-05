@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using WebAuto.Common;
 
 namespace WebAuto.DataAccess
 {
@@ -17,9 +16,8 @@ namespace WebAuto.DataAccess
 
         public string Email { get; set; }
 
+        //TODO: убрать из модели
         public string Phone { get; set; }
-
-        public ContactsVisibility ContactsVisibleTo { get; set; }
 
         public int? AvatarId { get; set; }
 

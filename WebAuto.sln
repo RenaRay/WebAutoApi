@@ -21,8 +21,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAuto.Frontend", "WebAuto
 		{A6742020-38C5-478B-B6A6-955F161F7E0F} = {A6742020-38C5-478B-B6A6-955F161F7E0F}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAuto.Common", "WebAuto.Common\WebAuto.Common.csproj", "{9A6D2F99-5AD8-49A6-B5DB-BB2A7443EC64}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAuto.DataAccess.EntityFramework", "WebAuto.DataAccess.EntityFramework\WebAuto.DataAccess.EntityFramework.csproj", "{7793E631-3DAE-4CD7-A098-70044D7D44AF}"
 EndProject
 Global
@@ -47,10 +45,6 @@ Global
 		{67DC7E23-49CC-4A6D-9728-27939EFA9AC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{67DC7E23-49CC-4A6D-9728-27939EFA9AC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{67DC7E23-49CC-4A6D-9728-27939EFA9AC4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9A6D2F99-5AD8-49A6-B5DB-BB2A7443EC64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9A6D2F99-5AD8-49A6-B5DB-BB2A7443EC64}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9A6D2F99-5AD8-49A6-B5DB-BB2A7443EC64}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9A6D2F99-5AD8-49A6-B5DB-BB2A7443EC64}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7793E631-3DAE-4CD7-A098-70044D7D44AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7793E631-3DAE-4CD7-A098-70044D7D44AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7793E631-3DAE-4CD7-A098-70044D7D44AF}.Release|Any CPU.ActiveCfg = Release|Any CPU

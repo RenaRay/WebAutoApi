@@ -66,7 +66,6 @@ namespace WebAuto.Backend.Controllers
             user.LastName = model.LastName;
             user.Email = model.Email;
             user.Phone = model.Phone;
-            user.ContactsVisibleTo = model.ContactsVisibleTo;
             user.AvatarId = model.Avatar;
             var cars = model.Cars ?? Enumerable.Empty<CarModel>();
             user.Cars = cars

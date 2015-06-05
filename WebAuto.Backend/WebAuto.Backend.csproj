@@ -165,10 +165,6 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WebAuto.Common\WebAuto.Common.csproj">
-      <Project>{9a6d2f99-5ad8-49a6-b5db-bb2a7443ec64}</Project>
-      <Name>WebAuto.Common</Name>
-    </ProjectReference>
     <ProjectReference Include="..\WebAuto.DataAccess.EntityFramework\WebAuto.DataAccess.EntityFramework.csproj">
       <Project>{7793e631-3dae-4cd7-a098-70044d7d44af}</Project>
       <Name>WebAuto.DataAccess.EntityFramework</Name>

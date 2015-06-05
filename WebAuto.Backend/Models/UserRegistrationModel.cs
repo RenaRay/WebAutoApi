@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using WebAuto.Backend.Properties;
-using WebAuto.Common;
 
 namespace WebAuto.Backend.Models
 {

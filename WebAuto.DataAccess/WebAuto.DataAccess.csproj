@@ -48,12 +48,6 @@
     <Compile Include="User.cs" />
     <Compile Include="Avatar.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\WebAuto.Common\WebAuto.Common.csproj">
-      <Project>{9a6d2f99-5ad8-49a6-b5db-bb2a7443ec64}</Project>
-      <Name>WebAuto.Common</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

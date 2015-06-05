@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using WebAuto.Backend.Properties;
-using WebAuto.Common;
 
 namespace WebAuto.Backend.Models
 {
@@ -38,8 +37,6 @@ namespace WebAuto.Backend.Models
             ErrorMessageResourceType = typeof(Resources),
             ErrorMessageResourceName = "ValidationPhoneStringLength")]
         public string Phone { get; set; }
-
-        public ContactsVisibility ContactsVisibleTo { get; set; }
 
         public int? Avatar { get; set; }
 

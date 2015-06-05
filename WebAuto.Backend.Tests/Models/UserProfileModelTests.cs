@@ -4,7 +4,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using WebAuto.Backend.Models;
 using WebAuto.Backend.Tests.Helpers;
-using WebAuto.Common;
 
 namespace WebAuto.Backend.Tests.Controllers
 {
@@ -31,8 +30,7 @@ namespace WebAuto.Backend.Tests.Controllers
                     new UserProfileModel
                     {
                         FirstName = "Ivan",
-                        LastName = "Ivanov",
-                        ContactsVisibleTo = ContactsVisibility.Everyone
+                        LastName = "Ivanov"
                     };
                 yield return
                     new UserProfileModelTestCase

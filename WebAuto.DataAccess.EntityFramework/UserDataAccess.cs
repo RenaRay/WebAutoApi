@@ -1,55 +1,97 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq.Expressions;
 
 namespace WebAuto.DataAccess.EntityFramework
 {
     public class UserDataAccess : IUserDataAccess
     {
-        private static List<User> _users = new List<User>
-        {
-            new User
-            {
-                Login = "test",
-                PasswordHash = "n4bQgYhMfWWaL+qgxVrQFaO/TxsrC4Is0V1sFbDwCgg=",
-            }
-        };
-
-        private static int _identity = 0;
-
         public Task<User> FindByLoginAsync(string login)
         {
-            var user = _users.FirstOrDefault(u => u.Login == login);
-            return Task.FromResult(user);
+            return FindFirstOrDefault(co => co.Login == login);
+        }
+
+        private static async Task<User> FindFirstOrDefault(Expression<Func<CarOwner, bool>> predicate)
+        {
+            CarOwner carOwner;
+            using (var entities = new Entities())
+            {
+                carOwner = await entities.CarOwner.FirstOrDefaultAsync(predicate);
+            }
+            if (carOwner == null)
+            {
+                return null;
+            }
+
+            var user = GetUserFromCarOwner(carOwner);
+            return user;
+        }
+
+        private static User GetUserFromCarOwner(CarOwner carOwner)
+        {
+            var user =
+                new User
+                {
+                    Id = carOwner.CarOwnerID,
+                    Login = carOwner.Login,
+                    PasswordHash = carOwner.Password,
+                    Email = carOwner.Email,
+                    FirstName = carOwner.FirstName,
+                    LastName = carOwner.LastName,
+                };
+            return user;
         }
 
         public Task<User> FindByLoginAndPasswordHashAsync(string login, string passwordHash)
         {
-            var user = _users.FirstOrDefault(u =>
-                u.Login == login &&
-                u.PasswordHash == passwordHash);
-            return Task.FromResult(user);
+            return FindFirstOrDefault(co =>
+                co.Login == login &&
+                co.Password == passwordHash);
         }
 
         public Task<User> FindByPlateExactAsync(string plate)
         {
-            var user = _users.FirstOrDefault(u =>
-                u.Cars != null &&
-                u.Cars.Any(car => string.Equals(car.Plate, plate, StringComparison.CurrentCultureIgnoreCase)));
-            return Task.FromResult(user);
+            //TODO: нужно искать без учета регистра
+            return FindFirstOrDefault(co => co.Car.Any(car => car.RegNumber == plate));
         }
 
-        public Task CreateAsync(User user)
+        public async Task CreateAsync(User user)
         {
-            user.Id = _identity++;
-            _users.Add(user);
-            return Task.FromResult<Object>(null);
+            var carOwner = GetCarOwnerFromUser(user);
+            using (var entities = new Entities())
+            {
+                entities.CarOwner.Add(carOwner);
+                await entities.SaveChangesAsync();
+            }
         }
 
-        public Task UpdateAsync(User user)
+        private static CarOwner GetCarOwnerFromUser(User user)
         {
-            return Task.FromResult<Object>(null);
+            var carOwner =
+                new CarOwner
+                {
+                    CarOwnerID = user.Id,
+                    Login = user.Login,
+                    Password = user.PasswordHash,
+                    Email = user.Email,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                };
+            return carOwner;
+        }
+
+        public async Task UpdateAsync(User user)
+        {
+            var carOwner = GetCarOwnerFromUser(user);
+            using (var entities = new Entities())
+            {
+                entities.CarOwner.Attach(carOwner);
+                entities.Entry(carOwner).State = EntityState.Modified;
+                await entities.SaveChangesAsync();
+            }
         }
     }
 }

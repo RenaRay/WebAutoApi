@@ -79,10 +79,6 @@
       <Project>{a6742020-38c5-478b-b6a6-955f161f7e0f}</Project>
       <Name>WebAuto.Backend</Name>
     </ProjectReference>
-    <ProjectReference Include="..\WebAuto.Common\WebAuto.Common.csproj">
-      <Project>{9a6d2f99-5ad8-49a6-b5db-bb2a7443ec64}</Project>
-      <Name>WebAuto.Common</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />

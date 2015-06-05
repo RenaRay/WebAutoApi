@@ -15,11 +15,6 @@
     function main(config, authentication, $http, $location, $timeout) {
         var vm = this;
         vm.data = {
-            firstName: '',
-            lastName: '',
-            email: '',
-            phone: '',
-            contactsVisibleTo: 'Friends',
             login: '',
             password: '',
             passwordConfirmation: ''

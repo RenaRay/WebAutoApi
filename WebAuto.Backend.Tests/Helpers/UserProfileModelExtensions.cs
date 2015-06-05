@@ -10,7 +10,6 @@ namespace WebAuto.Backend.Tests.Helpers
             var clone =
                 new UserProfileModel
                 {
-                    ContactsVisibleTo = model.ContactsVisibleTo,
                     Email = model.Email,
                     FirstName = model.FirstName,
                     LastName = model.LastName,

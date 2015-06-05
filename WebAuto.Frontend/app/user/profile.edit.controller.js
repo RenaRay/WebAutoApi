@@ -22,7 +22,6 @@
             lastName: '',
             email: '',
             phone: '',
-            contactsVisibleTo: '1',//TODO: create dictionary service and pull list of available values. 1=nobody
             avatar: null,
             cars: []
         };
