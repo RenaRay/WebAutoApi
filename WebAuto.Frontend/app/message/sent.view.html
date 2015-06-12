@@ -3,7 +3,8 @@
 
     <div class="col-md-4 col-sm-6 col-xs-10 col-md-offset-4 col-sm-offset-3 col-xs-offset-1" ng-repeat="message in vm.messages">
         <span class="text-muted">{{message.sent | date:"dd.MM.yyyy  HH:mm:ss"}}</span>
-        <span class="pull-right">{{message.to}}</span>
+        <span class="pull-right message-sent-to">{{message.to}}</span>
+        <span class="glyphicon glyphicon-thumbs-up pull-right message-sent-liked" ng-hide="!message.isLiked"></span>
         <p class="well">
             <span>{{message.text}}</span>
         </p>

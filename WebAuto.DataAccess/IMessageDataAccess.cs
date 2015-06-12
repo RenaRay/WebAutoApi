@@ -16,5 +16,9 @@ namespace WebAuto.DataAccess
         Task AddMessagesToUser(int userId);
 
         Task<List<Message>> GetSentMessages(int userId);
+
+        Task<Message> FindById(int messageId);
+
+        Task UpdateAsync(Message message);
     }
 }

@@ -99,8 +99,10 @@ namespace WebAuto.Backend.Controllers
             var messageModels = messages
                 .Select(m => new InboxMessageModel
                 {
+                    Id = m.Id,
                     Sent = m.Sent,
-                    Text = m.Text
+                    Text = m.Text,
+                    IsLiked = m.IsLiked
                 })
                 .ToList();
 
@@ -142,11 +144,43 @@ namespace WebAuto.Backend.Controllers
                 {
                     Sent = m.Sent,
                     Text = m.Text,
-                    To = m.ToPlate
+                    To = m.ToPlate,
+                    IsLiked = m.IsLiked
                 })
                 .ToList();
 
             return Ok(messageModels);
+        }
+
+        [Authorize]
+        [Route("like")]
+        [HttpPost]
+        public async Task<IHttpActionResult> Like([FromBody]int messageId)
+        {
+            var currentUserLogin = User.Identity.Name;
+            var user = await _userDataAccess.FindByLoginAsync(currentUserLogin);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            //найти сообщение по идентификатору
+            var message = await _messageDataAccess.FindById(messageId);
+            //если сообщение не найдено, то возвращаем ошибку
+            if (message == null)
+            {
+                return NotFound();
+            }
+            //если сообщение адресовано не текущему пользователю, то возвращаем ошибку
+            if (message.ToUserId != user.Id)
+            {
+                return BadRequest();
+            }
+            //иначе проставляем флаг и обновляем сообщение
+            message.IsLiked = true;
+            await _messageDataAccess.UpdateAsync(message);
+
+            return Ok();
         }
     }
 }

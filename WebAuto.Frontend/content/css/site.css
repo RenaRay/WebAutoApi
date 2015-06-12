@@ -92,3 +92,18 @@ body {
 /* message module styles
 -------------------------------------------------- */
 
+.message-inbox-container {
+    margin-bottom: 20px;
+}
+
+.message-inbox {
+    margin-bottom: 0;
+}
+
+.message-sent-to {
+    margin-left: 4px;
+}
+
+.message-sent-liked {
+    margin-top: 3px;
+}

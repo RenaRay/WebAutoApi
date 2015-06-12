@@ -20,7 +20,8 @@
             send: send,
             getInboxMessages: getInboxMessages,
             readInboxMessages: readInboxMessages,
-            getSentMessages: getSentMessages
+            getSentMessages: getSentMessages,
+            like: like
         };
 
         $rootScope.$watch(
@@ -64,6 +65,13 @@
         function getSentMessages() {
             var url = config.backendUrl + 'messages/sent';
             return $http.get(url);
+        }
+
+        function like(messageId) {
+            var url = config.backendUrl + 'messages/like';
+            return $http.post(
+                url,
+                messageId);
         }
 
         return service;

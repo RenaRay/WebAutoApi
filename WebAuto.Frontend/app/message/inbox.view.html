@@ -1,10 +1,11 @@
 ﻿<div class="container" data-ng-controller="app.message.inbox.controller as vm">
     <h1 class="page-header">Входящие</h1>
 
-    <div class="col-md-4 col-sm-6 col-xs-10 col-md-offset-4 col-sm-offset-3 col-xs-offset-1" ng-repeat="message in vm.messages">
+    <div class="col-md-4 col-sm-6 col-xs-10 col-md-offset-4 col-sm-offset-3 col-xs-offset-1 message-inbox-container" ng-repeat="message in vm.messages">
         <span class="text-muted">{{message.sent | date:"dd.MM.yyyy  HH:mm:ss"}}</span>
-        <p class="well">
+        <p class="well message-inbox">
             <span>{{message.text}}</span>
         </p>
+        <a href="" class="btn btn-xs btn-default pull-right" data-ng-click="vm.like(message.id)" data-ng-hide="message.isLiked"><span class="glyphicon glyphicon-thumbs-up"></span> Спасибо</a>
     </div>
 </div>
