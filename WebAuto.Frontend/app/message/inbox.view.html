@@ -1,0 +1,8 @@
+﻿<div class="container" data-ng-controller="app.message.controller as vm">
+    <h1 class="page-header">Входящие</h1>
+
+    <div ng-repeat="message in vm.messages">
+        <span>{{message.sent | date:"dd.MM.yyyy  HH:mm:ss"}}</span>
+        <span>{{message.text}}</span>
+    </div>
+</div>

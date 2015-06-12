@@ -17,7 +17,8 @@
             state: {
                 unreadCount: 0
             },
-            send: send
+            send: send,
+            getInboxMessages: getInboxMessages
         };
 
         $rootScope.$watch(
@@ -41,8 +42,13 @@
         updateUnreadCount();
 
         function send(data) {
-            var url = config.backendUrl + 'message';
+            var url = config.backendUrl + 'messages';
             return $http.post(url, data);
+        }
+
+        function getInboxMessages() {
+            var url = config.backendUrl + 'messages/inbox';
+            return $http.get(url);
         }
 
         return service;

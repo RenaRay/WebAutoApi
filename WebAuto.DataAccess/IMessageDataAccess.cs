@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace WebAuto.DataAccess
 {
@@ -7,5 +8,7 @@ namespace WebAuto.DataAccess
         Task CreateAsync(Message message);
 
         Task<int> GetUnreadCount(int userId);
+
+        Task<List<Message>> GetInboxMessages(int userId);
     }
 }

@@ -128,6 +128,7 @@
     <Compile Include="Middleware\GlobalizationMiddlewareOptions.cs" />
     <Compile Include="Models\CarModel.cs" />
     <Compile Include="Models\ConfigurationModel.cs" />
+    <Compile Include="Models\InboxMessageModel.cs" />
     <Compile Include="Models\SendMessageModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Models\UserProfileModel.cs" />

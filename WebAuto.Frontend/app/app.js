@@ -8,7 +8,8 @@
             'angular-loading-bar',
 
             'app.home',
-            'app.user'
+            'app.user',
+            'app.message'
         ])
         .config(routes)
         .config(http)

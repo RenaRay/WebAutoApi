@@ -26,3 +26,5 @@
 /// <reference path="loading-bar.js" />
 /// <reference path="ng-file-upload.js" />
 /// <reference path="ui-bootstrap-tpls-0.13.0.js" />
+/// <reference path="../app/message/module.js" />
+/// <reference path="../app/message/message.controller.js" />

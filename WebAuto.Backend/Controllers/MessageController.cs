@@ -32,6 +32,7 @@ namespace WebAuto.Backend.Controllers
         }
 
         [Authorize]
+        [Route("")]
         [HttpPost]
         public async Task<IHttpActionResult> Send(SendMessageModel model)
         {
@@ -67,6 +68,7 @@ namespace WebAuto.Backend.Controllers
 
         [Authorize]
         [Route("unread")]
+        [HttpGet]
         public async Task<IHttpActionResult> GetUnreadCount()
         {
             var currentUserLogin = User.Identity.Name;
@@ -79,6 +81,30 @@ namespace WebAuto.Backend.Controllers
             var count = await _messageDataAccess.GetUnreadCount(user.Id);
 
             return Ok(new { count });
+        }
+
+        [Authorize]
+        [Route("inbox")]
+        [HttpGet]
+        public async Task<IHttpActionResult> Inbox()
+        {
+            var currentUserLogin = User.Identity.Name;
+            var user = await _userDataAccess.FindByLoginAsync(currentUserLogin);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var messages = await _messageDataAccess.GetInboxMessages(user.Id);
+            var messageModels = messages
+                .Select(m => new InboxMessageModel
+                {
+                    Sent = m.Sent,
+                    Text = m.Text
+                })
+                .ToList();
+
+            return Ok(messageModels);
         }
     }
 }

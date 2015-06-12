@@ -133,7 +133,6 @@ namespace WebAuto.DataAccess.EntityFramework
         {
             using (var entities = new Entities())
             {
-                
                 //1. получить пользователя из базы по id
                 var carOwner = entities.CarOwner.FirstOrDefault(co => co.CarOwnerID == user.Id);
                 //2. заполнить все свойства(в том числе и авто) пользователя из базы значениями из параметра user

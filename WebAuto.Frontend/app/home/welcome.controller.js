@@ -6,6 +6,5 @@
         .controller('app.welcome.controller', [main]);
 
     function main() {
-        }
     }
 })();
