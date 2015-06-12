@@ -123,5 +123,30 @@ namespace WebAuto.Backend.Controllers
 
             return Ok();
         }
+
+        [Authorize]
+        [Route("sent")]
+        [HttpGet]
+        public async Task<IHttpActionResult> Sent()
+        {
+            var currentUserLogin = User.Identity.Name;
+            var user = await _userDataAccess.FindByLoginAsync(currentUserLogin);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var messages = await _messageDataAccess.GetSentMessages(user.Id);
+            var messageModels = messages
+                .Select(m => new SentMessageModel
+                {
+                    Sent = m.Sent,
+                    Text = m.Text,
+                    To = m.ToPlate
+                })
+                .ToList();
+
+            return Ok(messageModels);
+        }
     }
 }

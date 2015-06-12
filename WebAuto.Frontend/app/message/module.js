@@ -12,5 +12,8 @@
         $routeProvider.when("/inbox", {
             templateUrl: "/app/message/inbox.view.html"
         });
+        $routeProvider.when("/sent", {
+            templateUrl: "/app/message/sent.view.html"
+        });
     }
 })();

@@ -1,8 +1,9 @@
-﻿<div class="container" data-ng-controller="app.message.inbox.controller as vm">
-    <h1 class="page-header">Входящие</h1>
+﻿<div class="container" data-ng-controller="app.message.sent.controller as vm">
+    <h1 class="page-header">Отправленные</h1>
 
     <div class="col-md-4 col-sm-6 col-xs-10 col-md-offset-4 col-sm-offset-3 col-xs-offset-1" ng-repeat="message in vm.messages">
         <span class="text-muted">{{message.sent | date:"dd.MM.yyyy  HH:mm:ss"}}</span>
+        <span class="pull-right">{{message.to}}</span>
         <p class="well">
             <span>{{message.text}}</span>
         </p>

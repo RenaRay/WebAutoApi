@@ -27,4 +27,5 @@
 /// <reference path="ng-file-upload.js" />
 /// <reference path="ui-bootstrap-tpls-0.13.0.js" />
 /// <reference path="../app/message/module.js" />
-/// <reference path="../app/message/message.controller.js" />
+/// <reference path="../app/message/inbox.controller.js" />
+/// <reference path="../app/message/sent.controller.js" />

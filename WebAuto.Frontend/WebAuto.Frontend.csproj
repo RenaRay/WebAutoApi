@@ -73,9 +73,11 @@
     <Content Include="app\app.js" />
     <Content Include="app\home\home.controller.js" />
     <Content Include="app\home\home.view.html" />
+    <Content Include="app\message\sent.controller.js" />
+    <Content Include="app\message\sent.view.html" />
     <Content Include="app\message\inbox.view.html" />
     <Content Include="app\message\module.js" />
-    <Content Include="app\message\message.controller.js" />
+    <Content Include="app\message\inbox.controller.js" />
     <Content Include="app\services\message.js" />
     <Content Include="app\services\profile.js" />
     <Content Include="app\services\authentication.js" />

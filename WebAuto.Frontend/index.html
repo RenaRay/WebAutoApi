@@ -28,6 +28,7 @@
                     <li data-ng-hide="!vm.authentication.isAuthenticated"><a href="#/home">Главная</a></li>
                     <li data-ng-hide="!vm.authentication.isAuthenticated"><a href="#/profile/{{vm.authentication.login}}">Профиль</a></li>
                     <li data-ng-hide="!vm.authentication.isAuthenticated"><a href="#/inbox">Входящие <span class="badge ng-hide" ng-hide="vm.message.unreadCount == 0">{{vm.message.unreadCount}}</span></a></li>
+                    <li data-ng-hide="!vm.authentication.isAuthenticated"><a href="#/sent">Отправленные</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li data-ng-hide="!vm.authentication.isAuthenticated"><a href="" data-ng-click="vm.logout()">Выход</a></li>
@@ -70,7 +71,8 @@
     <script src="app/user/register.controller.js?v=1"></script>
     <script src="app/user/profile.edit.controller.js?v=1"></script>
     <script src="app/user/profile.view.controller.js?v=1"></script>
-    <script src="app/message/message.controller.js?v=1"></script>
+    <script src="app/message/inbox.controller.js?v=1"></script>
+    <script src="app/message/sent.controller.js?v=1"></script>
     <!-- Load custom filters -->
     <script src="app/filters/avatar.js?v=1"></script>
     <!-- Load custom directives -->

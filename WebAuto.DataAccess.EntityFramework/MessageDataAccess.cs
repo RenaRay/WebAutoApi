@@ -51,21 +51,27 @@ namespace WebAuto.DataAccess.EntityFramework
                     .ToListAsync();
 
                 var inboxMessages = messages
-                    .Select(m => new DataAccess.Message
-                    {
-                        Id = m.MessageID,
-                        ToPlate = m.CarRegNumber,
-                        Sent = m.DateCreated,
-                        Text = m.MessageText,
-                        ToUserId = m.ReceiverID,
-                        IsRead = m.Viewed ?? false,
-                        IsLiked = m.Score ?? false,
-                        FromUserId = m.UserID
-                    })
+                    .Select(GetMessageFromEntity)
                     .ToList();
 
                 return inboxMessages;
             }
+        }
+
+        private static DataAccess.Message GetMessageFromEntity(Message entity)
+        {
+            return
+                new DataAccess.Message
+                {
+                    Id = entity.MessageID,
+                    ToPlate = entity.CarRegNumber,
+                    Sent = entity.DateCreated,
+                    Text = entity.MessageText,
+                    ToUserId = entity.ReceiverID,
+                    IsRead = entity.Viewed ?? false,
+                    IsLiked = entity.Score ?? false,
+                    FromUserId = entity.UserID
+                };
         }
 
         public async Task ReadInboxMessages(int userId)
@@ -103,6 +109,23 @@ namespace WebAuto.DataAccess.EntityFramework
                 }
 
                 await entities.SaveChangesAsync();
+            }
+        }
+
+        public async Task<List<DataAccess.Message>> GetSentMessages(int userId)
+        {
+            using (var entities = new Entities())
+            {
+                var messages = await entities.Message
+                    .Where(m => m.UserID == userId)
+                    .OrderByDescending(m => m.DateCreated)
+                    .ToListAsync();
+
+                var sentMessages = messages
+                    .Select(GetMessageFromEntity)
+                    .ToList();
+
+                return sentMessages;
             }
         }
     }

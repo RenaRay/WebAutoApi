@@ -3,7 +3,7 @@
 
     angular
         .module('app.user')
-        .controller('app.message.controller', [
+        .controller('app.message.sent.controller', [
             'app.services.message',
             main
         ]);
@@ -13,11 +13,9 @@
         vm.messages = [];
 
         messageService
-            .getInboxMessages()
+            .getSentMessages()
             .then(function (results) {
                 vm.messages = results.data;
-
-                messageService.readInboxMessages();
             }, function (error) {
 
             });

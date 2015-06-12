@@ -14,5 +14,7 @@ namespace WebAuto.DataAccess
         Task ReadInboxMessages(int userId);
 
         Task AddMessagesToUser(int userId);
+
+        Task<List<Message>> GetSentMessages(int userId);
     }
 }
