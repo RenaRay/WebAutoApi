@@ -17,13 +17,11 @@ namespace WebAuto.DataAccess.EntityFramework
         public CarOwner()
         {
             this.Car = new HashSet<Car>();
-            this.CarOwner_History = new HashSet<CarOwner_History>();
             this.Message = new HashSet<Message>();
         }
     
         public int CarOwnerID { get; set; }
         public string Login { get; set; }
-        public string Password { get; set; }
         public string Avatar { get; set; }
         public string Email { get; set; }
         public string sn_id { get; set; }
@@ -34,11 +32,11 @@ namespace WebAuto.DataAccess.EntityFramework
         public Nullable<System.DateTime> BirthDate { get; set; }
         public string Gender { get; set; }
         public string HairColor { get; set; }
+        public string Password { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
     
         public virtual ICollection<Car> Car { get; set; }
-        public virtual ICollection<CarOwner_History> CarOwner_History { get; set; }
         public virtual ICollection<Message> Message { get; set; }
     }
 }

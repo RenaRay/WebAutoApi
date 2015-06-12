@@ -29,6 +29,9 @@
             });
 
         function updateUnreadCount() {
+            if (!authentication.status.isAuthenticated) {
+                return;
+            }
             var url = config.backendUrl + 'messages/unread';
             $http.get(url)
                 .then(function (response) {

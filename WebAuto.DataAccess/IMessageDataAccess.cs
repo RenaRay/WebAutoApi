@@ -5,5 +5,7 @@ namespace WebAuto.DataAccess
     public interface IMessageDataAccess
     {
         Task CreateAsync(Message message);
+
+        Task<int> GetUnreadCount(int userId);
     }
 }

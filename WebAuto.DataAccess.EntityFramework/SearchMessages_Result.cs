@@ -14,13 +14,16 @@ namespace WebAuto.DataAccess.EntityFramework
     public partial class SearchMessages_Result
     {
         public int MessageID { get; set; }
-        public Nullable<int> UserID { get; set; }
-        public string MessageText { get; set; }
-        public byte[] MsgPhoto { get; set; }
-        public string GPSCoordinates { get; set; }
+        public int UserID { get; set; }
         public string CarRegNumber { get; set; }
+        public string MessageText { get; set; }
+        public Nullable<int> MessageTypeIcon { get; set; }
+        public string MsgPhoto { get; set; }
+        public string GPSCoordinates { get; set; }
         public Nullable<bool> Viewed { get; set; }
         public Nullable<bool> Score { get; set; }
         public System.DateTime DateCreated { get; set; }
+        public Nullable<int> ReceiverID { get; set; }
+        public Nullable<System.DateTime> DateViewed { get; set; }
     }
 }

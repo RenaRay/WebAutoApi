@@ -10,14 +10,20 @@
 namespace WebAuto.DataAccess.EntityFramework
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Message_History
+    public partial class FindNewMessages_Result
     {
         public int MessageID { get; set; }
-        public Nullable<int> RecieverId { get; set; }
+        public int UserID { get; set; }
+        public string CarRegNumber { get; set; }
+        public string MessageText { get; set; }
+        public Nullable<int> MessageTypeIcon { get; set; }
+        public string MsgPhoto { get; set; }
+        public string GPSCoordinates { get; set; }
+        public Nullable<bool> Viewed { get; set; }
+        public Nullable<bool> Score { get; set; }
+        public System.DateTime DateCreated { get; set; }
+        public Nullable<int> ReceiverID { get; set; }
         public Nullable<System.DateTime> DateViewed { get; set; }
-    
-        public virtual Message Message { get; set; }
     }
 }

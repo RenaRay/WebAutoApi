@@ -5,6 +5,8 @@ namespace WebAuto.Backend.Models
 {
     public class CarModel
     {
+        public int Id { get; set; }
+
         [StringLength(
             10,
             ErrorMessageResourceType = typeof(Resources),

@@ -55,7 +55,8 @@ namespace WebAuto.Backend.Controllers
                 new User
                 {
                     Login = model.Login,
-                    PasswordHash = _hashAlgorithm.Hash(model.Password)
+                    PasswordHash = _hashAlgorithm.Hash(model.Password),
+                    Cars = new List<Car>()
                 };
             await _userDataAccess.CreateAsync(userCreateContract);
 

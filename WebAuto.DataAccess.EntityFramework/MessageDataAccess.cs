@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -13,6 +14,14 @@ namespace WebAuto.DataAccess.EntityFramework
         {
             _messages.Add(message);
             return Task.FromResult<object>(null);
+        }
+
+        public Task<int> GetUnreadCount(int userId)
+        {
+            var count = _messages
+                .Where(m => m.ToUserId == userId && !m.IsRead)
+                .Count();
+            return Task.FromResult(count);
         }
     }
 }

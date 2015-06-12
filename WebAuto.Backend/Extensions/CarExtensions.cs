@@ -14,6 +14,7 @@ namespace WebAuto.Backend.Extensions
             return
                 new CarModel
                 {
+                    Id = car.Id,
                     Plate = car.Plate,
                     Vendor = car.Vendor,
                     Model = car.Model
@@ -29,6 +30,7 @@ namespace WebAuto.Backend.Extensions
             return
                 new Car
                 {
+                    Id = car.Id,
                     Plate = car.Plate.ToUpper(),
                     Vendor = car.Vendor,
                     Model = car.Model

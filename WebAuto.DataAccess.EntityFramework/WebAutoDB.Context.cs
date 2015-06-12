@@ -28,11 +28,8 @@ namespace WebAuto.DataAccess.EntityFramework
         }
     
         public virtual DbSet<Car> Car { get; set; }
-        public virtual DbSet<Car_History> Car_History { get; set; }
         public virtual DbSet<CarOwner> CarOwner { get; set; }
-        public virtual DbSet<CarOwner_History> CarOwner_History { get; set; }
         public virtual DbSet<Message> Message { get; set; }
-        public virtual DbSet<Message_History> Message_History { get; set; }
     
         public virtual int AddNewCar(Nullable<int> carID, Nullable<int> carOwnerId, string regNumber, string country, string brand, string model, string color)
         {
@@ -65,6 +62,15 @@ namespace WebAuto.DataAccess.EntityFramework
                 new ObjectParameter("Color", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddNewCar", carIDParameter, carOwnerIdParameter, regNumberParameter, countryParameter, brandParameter, modelParameter, colorParameter);
+        }
+    
+        public virtual ObjectResult<FindNewMessages_Result> FindNewMessages(string regnumber)
+        {
+            var regnumberParameter = regnumber != null ?
+                new ObjectParameter("Regnumber", regnumber) :
+                new ObjectParameter("Regnumber", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<FindNewMessages_Result>("FindNewMessages", regnumberParameter);
         }
     
         public virtual int InsertUser(Nullable<int> userID, string name, string login, string password, string avatar, string email, string sn_id, Nullable<System.DateTime> fLD, string mS, string job, Nullable<System.DateTime> bD, string gender, string hair, Nullable<int> carID, string regNumber, string country, string brand, string model, string color)
@@ -148,6 +154,19 @@ namespace WebAuto.DataAccess.EntityFramework
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertUser", userIDParameter, nameParameter, loginParameter, passwordParameter, avatarParameter, emailParameter, sn_idParameter, fLDParameter, mSParameter, jobParameter, bDParameter, genderParameter, hairParameter, carIDParameter, regNumberParameter, countryParameter, brandParameter, modelParameter, colorParameter);
         }
     
+        public virtual int ReadMessage(Nullable<int> userId, Nullable<int> messageId)
+        {
+            var userIdParameter = userId.HasValue ?
+                new ObjectParameter("userId", userId) :
+                new ObjectParameter("userId", typeof(int));
+    
+            var messageIdParameter = messageId.HasValue ?
+                new ObjectParameter("messageId", messageId) :
+                new ObjectParameter("messageId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ReadMessage", userIdParameter, messageIdParameter);
+        }
+    
         public virtual ObjectResult<SearchMessages_Result> SearchMessages(string regnumber, Nullable<System.DateTime> start, Nullable<System.DateTime> end)
         {
             var regnumberParameter = regnumber != null ?
@@ -163,109 +182,6 @@ namespace WebAuto.DataAccess.EntityFramework
                 new ObjectParameter("End", typeof(System.DateTime));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SearchMessages_Result>("SearchMessages", regnumberParameter, startParameter, endParameter);
-        }
-    
-        public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
-        {
-            var diagramnameParameter = diagramname != null ?
-                new ObjectParameter("diagramname", diagramname) :
-                new ObjectParameter("diagramname", typeof(string));
-    
-            var owner_idParameter = owner_id.HasValue ?
-                new ObjectParameter("owner_id", owner_id) :
-                new ObjectParameter("owner_id", typeof(int));
-    
-            var versionParameter = version.HasValue ?
-                new ObjectParameter("version", version) :
-                new ObjectParameter("version", typeof(int));
-    
-            var definitionParameter = definition != null ?
-                new ObjectParameter("definition", definition) :
-                new ObjectParameter("definition", typeof(byte[]));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_alterdiagram", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
-        }
-    
-        public virtual int sp_creatediagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
-        {
-            var diagramnameParameter = diagramname != null ?
-                new ObjectParameter("diagramname", diagramname) :
-                new ObjectParameter("diagramname", typeof(string));
-    
-            var owner_idParameter = owner_id.HasValue ?
-                new ObjectParameter("owner_id", owner_id) :
-                new ObjectParameter("owner_id", typeof(int));
-    
-            var versionParameter = version.HasValue ?
-                new ObjectParameter("version", version) :
-                new ObjectParameter("version", typeof(int));
-    
-            var definitionParameter = definition != null ?
-                new ObjectParameter("definition", definition) :
-                new ObjectParameter("definition", typeof(byte[]));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_creatediagram", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
-        }
-    
-        public virtual int sp_dropdiagram(string diagramname, Nullable<int> owner_id)
-        {
-            var diagramnameParameter = diagramname != null ?
-                new ObjectParameter("diagramname", diagramname) :
-                new ObjectParameter("diagramname", typeof(string));
-    
-            var owner_idParameter = owner_id.HasValue ?
-                new ObjectParameter("owner_id", owner_id) :
-                new ObjectParameter("owner_id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_dropdiagram", diagramnameParameter, owner_idParameter);
-        }
-    
-        public virtual int sp_helpdiagramdefinition(string diagramname, Nullable<int> owner_id)
-        {
-            var diagramnameParameter = diagramname != null ?
-                new ObjectParameter("diagramname", diagramname) :
-                new ObjectParameter("diagramname", typeof(string));
-    
-            var owner_idParameter = owner_id.HasValue ?
-                new ObjectParameter("owner_id", owner_id) :
-                new ObjectParameter("owner_id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_helpdiagramdefinition", diagramnameParameter, owner_idParameter);
-        }
-    
-        public virtual int sp_helpdiagrams(string diagramname, Nullable<int> owner_id)
-        {
-            var diagramnameParameter = diagramname != null ?
-                new ObjectParameter("diagramname", diagramname) :
-                new ObjectParameter("diagramname", typeof(string));
-    
-            var owner_idParameter = owner_id.HasValue ?
-                new ObjectParameter("owner_id", owner_id) :
-                new ObjectParameter("owner_id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_helpdiagrams", diagramnameParameter, owner_idParameter);
-        }
-    
-        public virtual int sp_renamediagram(string diagramname, Nullable<int> owner_id, string new_diagramname)
-        {
-            var diagramnameParameter = diagramname != null ?
-                new ObjectParameter("diagramname", diagramname) :
-                new ObjectParameter("diagramname", typeof(string));
-    
-            var owner_idParameter = owner_id.HasValue ?
-                new ObjectParameter("owner_id", owner_id) :
-                new ObjectParameter("owner_id", typeof(int));
-    
-            var new_diagramnameParameter = new_diagramname != null ?
-                new ObjectParameter("new_diagramname", new_diagramname) :
-                new ObjectParameter("new_diagramname", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_renamediagram", diagramnameParameter, owner_idParameter, new_diagramnameParameter);
-        }
-    
-        public virtual int sp_upgraddiagrams()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
         }
     
         public virtual int UpdateCar(Nullable<int> carID, Nullable<int> carOwnerId, string regNumber, string country, string brand, string model, string color, Nullable<double> price, string carBody, Nullable<int> prodYear, Nullable<double> run, string transmission, string engine, string drive, Nullable<bool> conflict, Nullable<bool> onSale)
@@ -337,11 +253,23 @@ namespace WebAuto.DataAccess.EntityFramework
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateCar", carIDParameter, carOwnerIdParameter, regNumberParameter, countryParameter, brandParameter, modelParameter, colorParameter, priceParameter, carBodyParameter, prodYearParameter, runParameter, transmissionParameter, engineParameter, driveParameter, conflictParameter, onSaleParameter);
         }
     
-        public virtual int UpdateUser(Nullable<int> userrID, Nullable<System.DateTime> fLD, string mS, string job, Nullable<System.DateTime> bD, string gender, string hair)
+        public virtual int UpdateUser(Nullable<int> userID, string name, string avatar, string email, Nullable<System.DateTime> fLD, string mS, string job, Nullable<System.DateTime> bD, string gender, string hair)
         {
-            var userrIDParameter = userrID.HasValue ?
-                new ObjectParameter("UserrID", userrID) :
-                new ObjectParameter("UserrID", typeof(int));
+            var userIDParameter = userID.HasValue ?
+                new ObjectParameter("UserID", userID) :
+                new ObjectParameter("UserID", typeof(int));
+    
+            var nameParameter = name != null ?
+                new ObjectParameter("Name", name) :
+                new ObjectParameter("Name", typeof(string));
+    
+            var avatarParameter = avatar != null ?
+                new ObjectParameter("Avatar", avatar) :
+                new ObjectParameter("Avatar", typeof(string));
+    
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
     
             var fLDParameter = fLD.HasValue ?
                 new ObjectParameter("FLD", fLD) :
@@ -367,7 +295,40 @@ namespace WebAuto.DataAccess.EntityFramework
                 new ObjectParameter("Hair", hair) :
                 new ObjectParameter("Hair", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateUser", userrIDParameter, fLDParameter, mSParameter, jobParameter, bDParameter, genderParameter, hairParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateUser", userIDParameter, nameParameter, avatarParameter, emailParameter, fLDParameter, mSParameter, jobParameter, bDParameter, genderParameter, hairParameter);
+        }
+    
+        public virtual int WriteMessage(Nullable<int> userId, string regnumber, string msgText, Nullable<int> msgTypeIcon, string msgPhoto, string gPSCoordinates, Nullable<System.DateTime> dateCreated)
+        {
+            var userIdParameter = userId.HasValue ?
+                new ObjectParameter("userId", userId) :
+                new ObjectParameter("userId", typeof(int));
+    
+            var regnumberParameter = regnumber != null ?
+                new ObjectParameter("Regnumber", regnumber) :
+                new ObjectParameter("Regnumber", typeof(string));
+    
+            var msgTextParameter = msgText != null ?
+                new ObjectParameter("MsgText", msgText) :
+                new ObjectParameter("MsgText", typeof(string));
+    
+            var msgTypeIconParameter = msgTypeIcon.HasValue ?
+                new ObjectParameter("MsgTypeIcon", msgTypeIcon) :
+                new ObjectParameter("MsgTypeIcon", typeof(int));
+    
+            var msgPhotoParameter = msgPhoto != null ?
+                new ObjectParameter("MsgPhoto", msgPhoto) :
+                new ObjectParameter("MsgPhoto", typeof(string));
+    
+            var gPSCoordinatesParameter = gPSCoordinates != null ?
+                new ObjectParameter("GPSCoordinates", gPSCoordinates) :
+                new ObjectParameter("GPSCoordinates", typeof(string));
+    
+            var dateCreatedParameter = dateCreated.HasValue ?
+                new ObjectParameter("DateCreated", dateCreated) :
+                new ObjectParameter("DateCreated", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("WriteMessage", userIdParameter, regnumberParameter, msgTextParameter, msgTypeIconParameter, msgPhotoParameter, gPSCoordinatesParameter, dateCreatedParameter);
         }
     }
 }

@@ -64,5 +64,21 @@ namespace WebAuto.Backend.Controllers
 
             return Ok();
         }
+
+        [Authorize]
+        [Route("unread")]
+        public async Task<IHttpActionResult> GetUnreadCount()
+        {
+            var currentUserLogin = User.Identity.Name;
+            var user = await _userDataAccess.FindByLoginAsync(currentUserLogin);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var count = await _messageDataAccess.GetUnreadCount(user.Id);
+
+            return Ok(new { count });
+        }
     }
 }

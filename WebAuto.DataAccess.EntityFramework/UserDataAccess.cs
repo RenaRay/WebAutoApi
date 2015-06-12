@@ -20,14 +20,14 @@ namespace WebAuto.DataAccess.EntityFramework
             using (var entities = new Entities())
             {
                 carOwner = await entities.CarOwner.FirstOrDefaultAsync(predicate);
-            }
-            if (carOwner == null)
-            {
-                return null;
-            }
+                if (carOwner == null)
+                {
+                    return null;
+                }
 
-            var user = GetUserFromCarOwner(carOwner);
-            return user;
+                var user = GetUserFromCarOwner(carOwner);
+                return user;
+            }
         }
 
         private static User GetUserFromCarOwner(CarOwner carOwner)
@@ -41,6 +41,15 @@ namespace WebAuto.DataAccess.EntityFramework
                     Email = carOwner.Email,
                     FirstName = carOwner.FirstName,
                     LastName = carOwner.LastName,
+                    Cars = carOwner.Car.Select(c =>
+                        new WebAuto.DataAccess.Car
+                        {
+                            Id = c.CarID,
+                            Model = c.Model,
+                            Vendor = c.Brand,
+                            Plate = c.RegNumber
+                        })
+                        .ToList()
                 };
             return user;
         }
@@ -70,26 +79,66 @@ namespace WebAuto.DataAccess.EntityFramework
 
         private static CarOwner GetCarOwnerFromUser(User user)
         {
-            var carOwner =
-                new CarOwner
-                {
-                    CarOwnerID = user.Id,
-                    Login = user.Login,
-                    Password = user.PasswordHash,
-                    Email = user.Email,
-                    FirstName = user.FirstName,
-                    LastName = user.LastName,
-                };
+            var carOwner = new CarOwner();
+            UpdateCarOwnerFromUser(carOwner, user);
             return carOwner;
         }
 
+        private static void UpdateCarOwnerFromUser(CarOwner carOwner, User user)
+        {
+            carOwner.CarOwnerID = user.Id;
+            carOwner.Login = user.Login;
+            carOwner.Password = user.PasswordHash;
+            carOwner.Email = user.Email;
+            carOwner.FirstName = user.FirstName;
+            carOwner.LastName = user.LastName;
+            
+            if (carOwner.Car == null)
+            {
+                carOwner.Car = new List<Car>();
+            }
+            //обновляем автомобили(для каждого авто CarOwner'а: находим у user'а автомобиль по идентификатору авто CarOwner'а и перезаписываем все свойства авто)
+            for (var i = 0; i < carOwner.Car.Count; i++ )
+            {
+                var carOwnerCar = carOwner.Car.ElementAt(i);
+                var userCar = user.Cars.FirstOrDefault(c => c.Id == carOwnerCar.CarID);
+                if (userCar != null)
+                {
+                    //перезаписать все свойства
+                    UpdateCarOwnerCarFromUserCar(carOwnerCar, userCar);
+                }
+                else//удаляем автомобили
+                {
+                    carOwner.Car.Remove(carOwnerCar);
+                }
+            }
+            
+            //добавляем CarOwner'у все автомобили user'а, у которых нет идентификатора(<1)
+            foreach(var userCar in user.Cars.Where(c => c.Id < 1))
+            {
+                var carOwnerCar = new Car();
+                UpdateCarOwnerCarFromUserCar(carOwnerCar, userCar);
+                carOwner.Car.Add(carOwnerCar);
+            }
+        }
+
+        private static void UpdateCarOwnerCarFromUserCar(Car carOwnerCar, DataAccess.Car userCar)
+        {
+            carOwnerCar.Model = userCar.Model;
+            carOwnerCar.Brand = userCar.Vendor;
+            carOwnerCar.RegNumber = userCar.Plate;
+        }
+        
         public async Task UpdateAsync(User user)
         {
-            var carOwner = GetCarOwnerFromUser(user);
             using (var entities = new Entities())
             {
-                entities.CarOwner.Attach(carOwner);
-                entities.Entry(carOwner).State = EntityState.Modified;
+                
+                //1. получить пользователя из базы по id
+                var carOwner = entities.CarOwner.FirstOrDefault(co => co.CarOwnerID == user.Id);
+                //2. заполнить все свойства(в том числе и авто) пользователя из базы значениями из параметра user
+                UpdateCarOwnerFromUser(carOwner, user);
+
                 await entities.SaveChangesAsync();
             }
         }

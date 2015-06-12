@@ -1,0 +1,505 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Car">
+          <Key>
+            <PropertyRef Name="CarID" />
+          </Key>
+          <Property Name="CarID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RegNumber" Type="nvarchar" MaxLength="11" />
+          <Property Name="Country" Type="nvarchar" MaxLength="30" />
+          <Property Name="CarOwnerId" Type="int" />
+          <Property Name="Brand" Type="nvarchar" MaxLength="30" />
+          <Property Name="Model" Type="nvarchar" MaxLength="30" />
+          <Property Name="Color" Type="nvarchar" MaxLength="20" />
+          <Property Name="Conflict" Type="bit" />
+        </EntityType>
+        <EntityType Name="CarOwner">
+          <Key>
+            <PropertyRef Name="CarOwnerID" />
+          </Key>
+          <Property Name="CarOwnerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="20" />
+          <Property Name="Avatar" Type="nvarchar" MaxLength="500" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="sn_id" Type="nvarchar" MaxLength="50" />
+          <Property Name="regdate" Type="datetime" />
+          <Property Name="FirstLicenseDate" Type="date" />
+          <Property Name="MaritalStatus" Type="nvarchar" MaxLength="1" />
+          <Property Name="Occupation" Type="nvarchar" MaxLength="50" />
+          <Property Name="BirthDate" Type="date" />
+          <Property Name="Gender" Type="nvarchar" MaxLength="1" />
+          <Property Name="HairColor" Type="nvarchar" MaxLength="20" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="64" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="64" />
+        </EntityType>
+        <EntityType Name="Message">
+          <Key>
+            <PropertyRef Name="MessageID" />
+          </Key>
+          <Property Name="MessageID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="CarRegNumber" Type="nvarchar" MaxLength="10" />
+          <Property Name="MessageText" Type="nvarchar" MaxLength="100" />
+          <Property Name="MessageTypeIcon" Type="int" />
+          <Property Name="MsgPhoto" Type="nvarchar" MaxLength="500" />
+          <Property Name="GPSCoordinates" Type="nvarchar" MaxLength="50" />
+          <Property Name="Viewed" Type="bit" />
+          <Property Name="Score" Type="bit" />
+          <Property Name="DateCreated" Type="datetime" Nullable="false" />
+          <Property Name="ReceiverID" Type="int" />
+          <Property Name="DateViewed" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_Car_CarOwner1">
+          <End Role="CarOwner" Type="Self.CarOwner" Multiplicity="0..1" />
+          <End Role="Car" Type="Self.Car" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CarOwner">
+              <PropertyRef Name="CarOwnerID" />
+            </Principal>
+            <Dependent Role="Car">
+              <PropertyRef Name="CarOwnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Message_CarOwner">
+          <End Role="CarOwner" Type="Self.CarOwner" Multiplicity="1" />
+          <End Role="Message" Type="Self.Message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CarOwner">
+              <PropertyRef Name="CarOwnerID" />
+            </Principal>
+            <Dependent Role="Message">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="AddNewCar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CarID" Type="int" Mode="In" />
+          <Parameter Name="CarOwnerId" Type="int" Mode="In" />
+          <Parameter Name="RegNumber" Type="nvarchar" Mode="In" />
+          <Parameter Name="Country" Type="nvarchar" Mode="In" />
+          <Parameter Name="Brand" Type="nvarchar" Mode="In" />
+          <Parameter Name="Model" Type="nvarchar" Mode="In" />
+          <Parameter Name="Color" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="FindNewMessages" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Regnumber" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="InsertUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="int" Mode="In" />
+          <Parameter Name="Name" Type="nvarchar" Mode="In" />
+          <Parameter Name="Login" Type="nvarchar" Mode="In" />
+          <Parameter Name="Password" Type="nvarchar" Mode="In" />
+          <Parameter Name="Avatar" Type="nvarchar" Mode="In" />
+          <Parameter Name="email" Type="nvarchar" Mode="In" />
+          <Parameter Name="sn_id" Type="nvarchar" Mode="In" />
+          <Parameter Name="FLD" Type="date" Mode="In" />
+          <Parameter Name="MS" Type="nvarchar" Mode="In" />
+          <Parameter Name="Job" Type="nvarchar" Mode="In" />
+          <Parameter Name="BD" Type="date" Mode="In" />
+          <Parameter Name="gender" Type="nvarchar" Mode="In" />
+          <Parameter Name="Hair" Type="nvarchar" Mode="In" />
+          <Parameter Name="CarID" Type="int" Mode="In" />
+          <Parameter Name="RegNumber" Type="nvarchar" Mode="In" />
+          <Parameter Name="Country" Type="nvarchar" Mode="In" />
+          <Parameter Name="brand" Type="nvarchar" Mode="In" />
+          <Parameter Name="model" Type="nvarchar" Mode="In" />
+          <Parameter Name="color" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="ReadMessage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userId" Type="int" Mode="In" />
+          <Parameter Name="messageId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SearchMessages" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Regnumber" Type="nvarchar" Mode="In" />
+          <Parameter Name="Start" Type="datetime" Mode="In" />
+          <Parameter Name="End" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="UpdateCar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CarID" Type="int" Mode="In" />
+          <Parameter Name="CarOwnerId" Type="int" Mode="In" />
+          <Parameter Name="RegNumber" Type="nvarchar" Mode="In" />
+          <Parameter Name="Country" Type="nvarchar" Mode="In" />
+          <Parameter Name="Brand" Type="nvarchar" Mode="In" />
+          <Parameter Name="Model" Type="nvarchar" Mode="In" />
+          <Parameter Name="Color" Type="nvarchar" Mode="In" />
+          <Parameter Name="Price" Type="float" Mode="In" />
+          <Parameter Name="CarBody" Type="nvarchar" Mode="In" />
+          <Parameter Name="ProdYear" Type="int" Mode="In" />
+          <Parameter Name="Run" Type="float" Mode="In" />
+          <Parameter Name="Transmission" Type="nvarchar" Mode="In" />
+          <Parameter Name="Engine" Type="nvarchar" Mode="In" />
+          <Parameter Name="Drive" Type="nvarchar" Mode="In" />
+          <Parameter Name="Conflict" Type="bit" Mode="In" />
+          <Parameter Name="OnSale" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="UpdateUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserID" Type="int" Mode="In" />
+          <Parameter Name="Name" Type="nvarchar" Mode="In" />
+          <Parameter Name="Avatar" Type="nvarchar" Mode="In" />
+          <Parameter Name="email" Type="nvarchar" Mode="In" />
+          <Parameter Name="FLD" Type="datetime" Mode="In" />
+          <Parameter Name="MS" Type="nvarchar" Mode="In" />
+          <Parameter Name="Job" Type="nvarchar" Mode="In" />
+          <Parameter Name="BD" Type="datetime" Mode="In" />
+          <Parameter Name="gender" Type="nvarchar" Mode="In" />
+          <Parameter Name="Hair" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="WriteMessage" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userId" Type="int" Mode="In" />
+          <Parameter Name="Regnumber" Type="nvarchar" Mode="In" />
+          <Parameter Name="MsgText" Type="nvarchar" Mode="In" />
+          <Parameter Name="MsgTypeIcon" Type="int" Mode="In" />
+          <Parameter Name="MsgPhoto" Type="nvarchar" Mode="In" />
+          <Parameter Name="GPSCoordinates" Type="nvarchar" Mode="In" />
+          <Parameter Name="DateCreated" Type="datetime" Mode="In" />
+        </Function>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="Car" EntityType="Self.Car" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CarOwner" EntityType="Self.CarOwner" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Message" EntityType="Self.Message" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Car_CarOwner1" Association="Self.FK_Car_CarOwner1">
+            <End Role="CarOwner" EntitySet="CarOwner" />
+            <End Role="Car" EntitySet="Car" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Message_CarOwner" Association="Self.FK_Message_CarOwner">
+            <End Role="CarOwner" EntitySet="CarOwner" />
+            <End Role="Message" EntitySet="Message" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Car">
+          <Key>
+            <PropertyRef Name="CarID" />
+          </Key>
+          <Property Name="CarID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RegNumber" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+          <Property Name="Country" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="CarOwnerId" Type="Int32" />
+          <Property Name="Brand" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Model" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Color" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Conflict" Type="Boolean" />
+          <NavigationProperty Name="CarOwner" Relationship="Self.FK_Car_CarOwner1" FromRole="Car" ToRole="CarOwner" />
+        </EntityType>
+        <EntityType Name="CarOwner">
+          <Key>
+            <PropertyRef Name="CarOwnerID" />
+          </Key>
+          <Property Name="CarOwnerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Login" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Avatar" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="sn_id" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="regdate" Type="DateTime" Precision="3" />
+          <Property Name="FirstLicenseDate" Type="DateTime" Precision="0" />
+          <Property Name="MaritalStatus" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="Occupation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BirthDate" Type="DateTime" Precision="0" />
+          <Property Name="Gender" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="HairColor" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Car" Relationship="Self.FK_Car_CarOwner1" FromRole="CarOwner" ToRole="Car" />
+          <NavigationProperty Name="Message" Relationship="Self.FK_Message_CarOwner" FromRole="CarOwner" ToRole="Message" />
+        </EntityType>
+        <EntityType Name="Message">
+          <Key>
+            <PropertyRef Name="MessageID" />
+          </Key>
+          <Property Name="MessageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="CarRegNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="MessageText" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="MessageTypeIcon" Type="Int32" />
+          <Property Name="MsgPhoto" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="GPSCoordinates" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Viewed" Type="Boolean" />
+          <Property Name="Score" Type="Boolean" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ReceiverID" Type="Int32" />
+          <Property Name="DateViewed" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="CarOwner" Relationship="Self.FK_Message_CarOwner" FromRole="Message" ToRole="CarOwner" />
+        </EntityType>
+        <Association Name="FK_Car_CarOwner1">
+          <End Role="CarOwner" Type="Self.CarOwner" Multiplicity="0..1" />
+          <End Role="Car" Type="Self.Car" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CarOwner">
+              <PropertyRef Name="CarOwnerID" />
+            </Principal>
+            <Dependent Role="Car">
+              <PropertyRef Name="CarOwnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Message_CarOwner">
+          <End Role="CarOwner" Type="Self.CarOwner" Multiplicity="1" />
+          <End Role="Message" Type="Self.Message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CarOwner">
+              <PropertyRef Name="CarOwnerID" />
+            </Principal>
+            <Dependent Role="Message">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Car" EntityType="Self.Car" />
+          <EntitySet Name="CarOwner" EntityType="Self.CarOwner" />
+          <EntitySet Name="Message" EntityType="Self.Message" />
+          <AssociationSet Name="FK_Car_CarOwner1" Association="Self.FK_Car_CarOwner1">
+            <End Role="CarOwner" EntitySet="CarOwner" />
+            <End Role="Car" EntitySet="Car" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Message_CarOwner" Association="Self.FK_Message_CarOwner">
+            <End Role="CarOwner" EntitySet="CarOwner" />
+            <End Role="Message" EntitySet="Message" />
+          </AssociationSet>
+          <FunctionImport Name="AddNewCar">
+            <Parameter Name="CarID" Mode="In" Type="Int32" />
+            <Parameter Name="CarOwnerId" Mode="In" Type="Int32" />
+            <Parameter Name="RegNumber" Mode="In" Type="String" />
+            <Parameter Name="Country" Mode="In" Type="String" />
+            <Parameter Name="Brand" Mode="In" Type="String" />
+            <Parameter Name="Model" Mode="In" Type="String" />
+            <Parameter Name="Color" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="FindNewMessages" ReturnType="Collection(Model.FindNewMessages_Result)">
+            <Parameter Name="Regnumber" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="InsertUser">
+            <Parameter Name="UserID" Mode="In" Type="Int32" />
+            <Parameter Name="Name" Mode="In" Type="String" />
+            <Parameter Name="Login" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+            <Parameter Name="Avatar" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="sn_id" Mode="In" Type="String" />
+            <Parameter Name="FLD" Mode="In" Type="DateTime" />
+            <Parameter Name="MS" Mode="In" Type="String" />
+            <Parameter Name="Job" Mode="In" Type="String" />
+            <Parameter Name="BD" Mode="In" Type="DateTime" />
+            <Parameter Name="gender" Mode="In" Type="String" />
+            <Parameter Name="Hair" Mode="In" Type="String" />
+            <Parameter Name="CarID" Mode="In" Type="Int32" />
+            <Parameter Name="RegNumber" Mode="In" Type="String" />
+            <Parameter Name="Country" Mode="In" Type="String" />
+            <Parameter Name="brand" Mode="In" Type="String" />
+            <Parameter Name="model" Mode="In" Type="String" />
+            <Parameter Name="color" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="ReadMessage">
+            <Parameter Name="userId" Mode="In" Type="Int32" />
+            <Parameter Name="messageId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SearchMessages" ReturnType="Collection(Model.SearchMessages_Result)">
+            <Parameter Name="Regnumber" Mode="In" Type="String" />
+            <Parameter Name="Start" Mode="In" Type="DateTime" />
+            <Parameter Name="End" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateCar">
+            <Parameter Name="CarID" Mode="In" Type="Int32" />
+            <Parameter Name="CarOwnerId" Mode="In" Type="Int32" />
+            <Parameter Name="RegNumber" Mode="In" Type="String" />
+            <Parameter Name="Country" Mode="In" Type="String" />
+            <Parameter Name="Brand" Mode="In" Type="String" />
+            <Parameter Name="Model" Mode="In" Type="String" />
+            <Parameter Name="Color" Mode="In" Type="String" />
+            <Parameter Name="Price" Mode="In" Type="Double" />
+            <Parameter Name="CarBody" Mode="In" Type="String" />
+            <Parameter Name="ProdYear" Mode="In" Type="Int32" />
+            <Parameter Name="Run" Mode="In" Type="Double" />
+            <Parameter Name="Transmission" Mode="In" Type="String" />
+            <Parameter Name="Engine" Mode="In" Type="String" />
+            <Parameter Name="Drive" Mode="In" Type="String" />
+            <Parameter Name="Conflict" Mode="In" Type="Boolean" />
+            <Parameter Name="OnSale" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateUser">
+            <Parameter Name="UserID" Mode="In" Type="Int32" />
+            <Parameter Name="Name" Mode="In" Type="String" />
+            <Parameter Name="Avatar" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="FLD" Mode="In" Type="DateTime" />
+            <Parameter Name="MS" Mode="In" Type="String" />
+            <Parameter Name="Job" Mode="In" Type="String" />
+            <Parameter Name="BD" Mode="In" Type="DateTime" />
+            <Parameter Name="gender" Mode="In" Type="String" />
+            <Parameter Name="Hair" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="WriteMessage">
+            <Parameter Name="userId" Mode="In" Type="Int32" />
+            <Parameter Name="Regnumber" Mode="In" Type="String" />
+            <Parameter Name="MsgText" Mode="In" Type="String" />
+            <Parameter Name="MsgTypeIcon" Mode="In" Type="Int32" />
+            <Parameter Name="MsgPhoto" Mode="In" Type="String" />
+            <Parameter Name="GPSCoordinates" Mode="In" Type="String" />
+            <Parameter Name="DateCreated" Mode="In" Type="DateTime" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="FindNewMessages_Result">
+          <Property Type="Int32" Name="MessageID" Nullable="false" />
+          <Property Type="Int32" Name="UserID" Nullable="false" />
+          <Property Type="String" Name="CarRegNumber" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="MessageText" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="MessageTypeIcon" Nullable="true" />
+          <Property Type="String" Name="MsgPhoto" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="GPSCoordinates" Nullable="true" MaxLength="50" />
+          <Property Type="Boolean" Name="Viewed" Nullable="true" />
+          <Property Type="Boolean" Name="Score" Nullable="true" />
+          <Property Type="DateTime" Name="DateCreated" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="ReceiverID" Nullable="true" />
+          <Property Type="DateTime" Name="DateViewed" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="SearchMessages_Result">
+          <Property Type="Int32" Name="MessageID" Nullable="false" />
+          <Property Type="Int32" Name="UserID" Nullable="false" />
+          <Property Type="String" Name="CarRegNumber" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="MessageText" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="MessageTypeIcon" Nullable="true" />
+          <Property Type="String" Name="MsgPhoto" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="GPSCoordinates" Nullable="true" MaxLength="50" />
+          <Property Type="Boolean" Name="Viewed" Nullable="true" />
+          <Property Type="Boolean" Name="Score" Nullable="true" />
+          <Property Type="DateTime" Name="DateCreated" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="ReceiverID" Nullable="true" />
+          <Property Type="DateTime" Name="DateViewed" Nullable="true" Precision="23" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="Car">
+            <EntityTypeMapping TypeName="Model.Car">
+              <MappingFragment StoreEntitySet="Car">
+                <ScalarProperty Name="CarID" ColumnName="CarID" />
+                <ScalarProperty Name="RegNumber" ColumnName="RegNumber" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="CarOwnerId" ColumnName="CarOwnerId" />
+                <ScalarProperty Name="Brand" ColumnName="Brand" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="Color" ColumnName="Color" />
+                <ScalarProperty Name="Conflict" ColumnName="Conflict" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CarOwner">
+            <EntityTypeMapping TypeName="Model.CarOwner">
+              <MappingFragment StoreEntitySet="CarOwner">
+                <ScalarProperty Name="CarOwnerID" ColumnName="CarOwnerID" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Avatar" ColumnName="Avatar" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="sn_id" ColumnName="sn_id" />
+                <ScalarProperty Name="regdate" ColumnName="regdate" />
+                <ScalarProperty Name="FirstLicenseDate" ColumnName="FirstLicenseDate" />
+                <ScalarProperty Name="MaritalStatus" ColumnName="MaritalStatus" />
+                <ScalarProperty Name="Occupation" ColumnName="Occupation" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="HairColor" ColumnName="HairColor" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Message">
+            <EntityTypeMapping TypeName="Model.Message">
+              <MappingFragment StoreEntitySet="Message">
+                <ScalarProperty Name="MessageID" ColumnName="MessageID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="CarRegNumber" ColumnName="CarRegNumber" />
+                <ScalarProperty Name="MessageText" ColumnName="MessageText" />
+                <ScalarProperty Name="MessageTypeIcon" ColumnName="MessageTypeIcon" />
+                <ScalarProperty Name="MsgPhoto" ColumnName="MsgPhoto" />
+                <ScalarProperty Name="GPSCoordinates" ColumnName="GPSCoordinates" />
+                <ScalarProperty Name="Viewed" ColumnName="Viewed" />
+                <ScalarProperty Name="Score" ColumnName="Score" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="ReceiverID" ColumnName="ReceiverID" />
+                <ScalarProperty Name="DateViewed" ColumnName="DateViewed" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="AddNewCar" FunctionName="Model.Store.AddNewCar" />
+          <FunctionImportMapping FunctionImportName="FindNewMessages" FunctionName="Model.Store.FindNewMessages">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Model.FindNewMessages_Result">
+                <ScalarProperty Name="MessageID" ColumnName="MessageID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="CarRegNumber" ColumnName="CarRegNumber" />
+                <ScalarProperty Name="MessageText" ColumnName="MessageText" />
+                <ScalarProperty Name="MessageTypeIcon" ColumnName="MessageTypeIcon" />
+                <ScalarProperty Name="MsgPhoto" ColumnName="MsgPhoto" />
+                <ScalarProperty Name="GPSCoordinates" ColumnName="GPSCoordinates" />
+                <ScalarProperty Name="Viewed" ColumnName="Viewed" />
+                <ScalarProperty Name="Score" ColumnName="Score" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="ReceiverID" ColumnName="ReceiverID" />
+                <ScalarProperty Name="DateViewed" ColumnName="DateViewed" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="InsertUser" FunctionName="Model.Store.InsertUser" />
+          <FunctionImportMapping FunctionImportName="ReadMessage" FunctionName="Model.Store.ReadMessage" />
+          <FunctionImportMapping FunctionImportName="SearchMessages" FunctionName="Model.Store.SearchMessages">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Model.SearchMessages_Result">
+                <ScalarProperty Name="MessageID" ColumnName="MessageID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="CarRegNumber" ColumnName="CarRegNumber" />
+                <ScalarProperty Name="MessageText" ColumnName="MessageText" />
+                <ScalarProperty Name="MessageTypeIcon" ColumnName="MessageTypeIcon" />
+                <ScalarProperty Name="MsgPhoto" ColumnName="MsgPhoto" />
+                <ScalarProperty Name="GPSCoordinates" ColumnName="GPSCoordinates" />
+                <ScalarProperty Name="Viewed" ColumnName="Viewed" />
+                <ScalarProperty Name="Score" ColumnName="Score" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="ReceiverID" ColumnName="ReceiverID" />
+                <ScalarProperty Name="DateViewed" ColumnName="DateViewed" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="UpdateCar" FunctionName="Model.Store.UpdateCar" />
+          <FunctionImportMapping FunctionImportName="UpdateUser" FunctionName="Model.Store.UpdateUser" />
+          <FunctionImportMapping FunctionImportName="WriteMessage" FunctionName="Model.Store.WriteMessage" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
