@@ -16,6 +16,8 @@
             .getInboxMessages()
             .then(function (results) {
                 vm.messages = results.data;
+
+                messageService.readInboxMessages();
             }, function (error) {
 
             });

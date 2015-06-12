@@ -47,6 +47,7 @@ namespace WebAuto.DataAccess.EntityFramework
             {
                 var messages = await entities.Message
                     .Where(m => m.ReceiverID == userId)
+                    .OrderByDescending(m => m.DateCreated)
                     .ToListAsync();
 
                 var inboxMessages = messages
@@ -64,6 +65,44 @@ namespace WebAuto.DataAccess.EntityFramework
                     .ToList();
 
                 return inboxMessages;
+            }
+        }
+
+        public async Task ReadInboxMessages(int userId)
+        {
+            using (var entities = new Entities())
+            {
+                var messages = await entities.Message
+                    .Where(m => m.ReceiverID == userId && m.Viewed == false)
+                    .ToListAsync();
+                foreach(var message in messages)
+                {
+                    message.Viewed = true;
+                }
+
+                await entities.SaveChangesAsync();
+            }
+        }
+
+        public async Task AddMessagesToUser(int userId)
+        {
+            using (var entities = new Entities())
+            {
+                var plates = await entities.Car
+                    .Where(c => c.CarOwnerId == userId)
+                    .Select(c => c.RegNumber)
+                    .ToListAsync();
+
+                var messages = await entities.Message
+                    .Where(m => m.ReceiverID == null && plates.Contains(m.CarRegNumber))
+                    .ToListAsync();
+
+                foreach(var message in messages)
+                {
+                    message.ReceiverID = userId;
+                }
+
+                await entities.SaveChangesAsync();
             }
         }
     }

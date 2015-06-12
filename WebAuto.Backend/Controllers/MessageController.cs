@@ -106,5 +106,22 @@ namespace WebAuto.Backend.Controllers
 
             return Ok(messageModels);
         }
+
+        [Authorize]
+        [Route("read")]
+        [HttpPost]
+        public async Task<IHttpActionResult> Read()
+        {
+            var currentUserLogin = User.Identity.Name;
+            var user = await _userDataAccess.FindByLoginAsync(currentUserLogin);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            await _messageDataAccess.ReadInboxMessages(user.Id);
+
+            return Ok();
+        }
     }
 }

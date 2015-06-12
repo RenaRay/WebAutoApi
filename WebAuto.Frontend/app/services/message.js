@@ -18,7 +18,8 @@
                 unreadCount: 0
             },
             send: send,
-            getInboxMessages: getInboxMessages
+            getInboxMessages: getInboxMessages,
+            readInboxMessages: readInboxMessages
         };
 
         $rootScope.$watch(
@@ -49,6 +50,14 @@
         function getInboxMessages() {
             var url = config.backendUrl + 'messages/inbox';
             return $http.get(url);
+        }
+
+        function readInboxMessages() {
+            var url = config.backendUrl + 'messages/read';
+            return $http.post(url)
+                .then(function() {
+                    updateUnreadCount();
+                });
         }
 
         return service;

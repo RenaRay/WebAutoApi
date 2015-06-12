@@ -15,10 +15,12 @@ namespace WebAuto.Backend.Controllers
     {
         private readonly IUserDataAccess _userDataAccess;
         private readonly IAvatarDataAccess _avatarDataAccess;
+        private readonly IMessageDataAccess _messageDataAccess;
 
         public ProfileController(
             IUserDataAccess userDataAccess,
-            IAvatarDataAccess avatarDataAccess)
+            IAvatarDataAccess avatarDataAccess,
+            IMessageDataAccess messageDataAccess)
         {
             if (userDataAccess == null)
             {
@@ -28,8 +30,13 @@ namespace WebAuto.Backend.Controllers
             {
                 throw new ArgumentNullException("avatarDataAccess");
             }
+            if (messageDataAccess == null)
+            {
+                throw new ArgumentNullException("messageDataAccess");
+            }
             _userDataAccess = userDataAccess;
             _avatarDataAccess = avatarDataAccess;
+            _messageDataAccess = messageDataAccess;
         }
         
         //http://localhost/api/profile/test
@@ -48,6 +55,7 @@ namespace WebAuto.Backend.Controllers
         }
 
         [Authorize]
+        [Route("")]
         public async Task<IHttpActionResult> Post(UserProfileModel model)
         {
             if (!ModelState.IsValid)
@@ -77,6 +85,11 @@ namespace WebAuto.Backend.Controllers
                 .ToList();
 
             await _userDataAccess.UpdateAsync(user);
+
+            //1. получить список номеров автомобилей
+            //2. найти сообщения, не привязанные к пользователю и
+            //привязать все сообщения к текущему пользователю
+            await _messageDataAccess.AddMessagesToUser(user.Id);
             
             return Ok();
         }
