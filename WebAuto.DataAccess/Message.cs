@@ -11,7 +11,7 @@ namespace WebAuto.DataAccess
 
         public string Text { get; set; }
 
-        public string ToPlate {get; set;}
+        public string ToPlate { get; set; }
 
         public int? ToUserId { get; set; }
 
@@ -22,5 +22,7 @@ namespace WebAuto.DataAccess
         public bool IsLiked { get; set; }
 
         public DateTime Sent { get; set; }
+
+        public DateTime? Viewed { get; set; }
     }
 }

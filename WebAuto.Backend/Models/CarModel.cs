@@ -24,5 +24,11 @@ namespace WebAuto.Backend.Models
             ErrorMessageResourceType = typeof(Resources),
             ErrorMessageResourceName = "ValidationCarModelStringLength")]
         public string Model { get; set; }
+
+        public string Country { get; set; }
+
+        public string Color { get; set; }
+
+        public bool? Conflict { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace WebAuto.DataAccess
 {
@@ -16,11 +17,22 @@ namespace WebAuto.DataAccess
 
         public string Email { get; set; }
 
-        //TODO: убрать из модели
-        public string Phone { get; set; }
-
         public int? AvatarId { get; set; }
 
         public List<Car> Cars { get; set; }
+
+        public DateTime? RegDate { get; set; }
+
+        public DateTime? FirstLicenseDate { get; set; }
+
+        public char MaritalStatus { get; set; }
+
+        public string Occupation { get; set; }
+
+        public DateTime? BirthDate { get; set; }
+
+        public char Gender { get; set; }
+
+        public string HairColor { get; set; }
     }
 }
