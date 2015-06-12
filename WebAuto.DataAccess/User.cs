@@ -17,7 +17,7 @@ namespace WebAuto.DataAccess
 
         public string Email { get; set; }
 
-        public int? AvatarId { get; set; }
+        public string AvatarId { get; set; }
 
         public List<Car> Cars { get; set; }
 

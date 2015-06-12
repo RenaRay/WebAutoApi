@@ -107,6 +107,7 @@ namespace WebAuto.DataAccess.EntityFramework
                 foreach (var message in messages)
                 {
                     message.ReceiverID = userId;
+                    message.DateViewed = DateTime.Now;
                 }
 
                 await entities.SaveChangesAsync();
