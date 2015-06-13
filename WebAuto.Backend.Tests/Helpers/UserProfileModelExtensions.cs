@@ -13,7 +13,7 @@ namespace WebAuto.Backend.Tests.Helpers
                     Email = model.Email,
                     FirstName = model.FirstName,
                     LastName = model.LastName,
-                    Phone = model.Phone,
+                    //Phone = model.Phone,
                     Cars = model.Cars != null ? new List<CarModel>(model.Cars) : new List<CarModel>(),
                     Avatar = model.Avatar
                 };

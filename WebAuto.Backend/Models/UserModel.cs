@@ -12,7 +12,7 @@ namespace WebAuto.Backend.Models
 
         public string Email { get; set; }
 
-        public string Avatar { get; set; }
+        public int Avatar { get; set; }
 
         public DateTime? RegDate { get; set; }
 

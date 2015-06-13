@@ -25,7 +25,7 @@ namespace WebAuto.Backend.Extensions
             
             if (currentUserLogin == user.Login)
             {
-                profile.Phone = user.Phone;
+                //profile.Phone = user.Phone;
                 profile.Email = user.Email;
             }
             return profile;

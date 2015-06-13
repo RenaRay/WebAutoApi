@@ -22,7 +22,7 @@ namespace WebAuto.DataAccess.EntityFramework
     
         public int CarOwnerID { get; set; }
         public string Login { get; set; }
-        public string Avatar { get; set; }
+        public int Avatar { get; set; }
         public string Email { get; set; }
         public string sn_id { get; set; }
         public Nullable<System.DateTime> regdate { get; set; }

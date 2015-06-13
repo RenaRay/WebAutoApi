@@ -33,7 +33,7 @@ namespace WebAuto.Backend.Models
             ErrorMessageResourceName = "ValidationEmailStringLength")]
         public string Email { get; set; }
 
-        public string Avatar { get; set; }
+        public int Avatar { get; set; }
 
         public List<CarModel> Cars { get; set; }
 

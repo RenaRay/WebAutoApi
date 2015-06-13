@@ -41,7 +41,7 @@ namespace WebAuto.Backend.Tests.Controllers
 
                 var modelWithEmailAndPhone = modelWithoutEmailAndPhone.Clone();
                 modelWithEmailAndPhone.Email = "ivan.ivanov@gmail.com";
-                modelWithEmailAndPhone.Phone = "+79179876543";
+                //modelWithEmailAndPhone.Phone = "+79179876543";
                 yield return
                     new UserProfileModelTestCase
                     {
@@ -51,7 +51,7 @@ namespace WebAuto.Backend.Tests.Controllers
 
                 var modelWithEmptyEmailAndPhone = modelWithoutEmailAndPhone.Clone();
                 modelWithEmptyEmailAndPhone.Email = string.Empty;
-                modelWithEmptyEmailAndPhone.Phone = string.Empty;
+                //modelWithEmptyEmailAndPhone.Phone = string.Empty;
                 yield return
                     new UserProfileModelTestCase
                     {
@@ -124,8 +124,8 @@ namespace WebAuto.Backend.Tests.Controllers
                 yield return longEmail;
 
                 var longPhone = ValidUserProfileModels.First();
-                longPhone.Model.Phone = new string('a', 13);
-                longPhone.Description = "max+1 phone length";
+                //longPhone.Model.Phone = new string('a', 13);
+                //longPhone.Description = "max+1 phone length";
                 yield return longPhone;
             }
         }

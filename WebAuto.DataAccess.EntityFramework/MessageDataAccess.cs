@@ -10,27 +10,28 @@ namespace WebAuto.DataAccess.EntityFramework
 {
     public class MessageDataAccess : IMessageDataAccess
     {
-        //Послать новое сообщение
         public async Task CreateAsync(DataAccess.Message message)
         {
-            var newMessage =
-                new Message
-                {
-                    CarRegNumber = message.ToPlate,
-                    DateCreated = message.Sent,
-                    MessageText = message.Text,
-                    ReceiverID = message.ToUserId,
-                    Score = false,
-                    Viewed = false,
-                    UserID = message.FromUserId
-                };
+            var entity = new Message();
+            UpdateEntityFromMessage(entity, message);
             using (var entities = new Entities())
             {
-                entities.Message.Add(newMessage);
+                entities.Message.Add(entity);
                 await entities.SaveChangesAsync();
             }
         }
-        //Сколько новых непрочитанных сообщений?
+
+        private void UpdateEntityFromMessage(Message entity, DataAccess.Message message)
+        {
+            entity.CarRegNumber = message.ToPlate;
+            entity.DateCreated = message.Sent;
+            entity.MessageText = message.Text;
+            entity.ReceiverID = message.ToUserId;
+            entity.Score = message.IsLiked;
+            entity.Viewed = message.IsRead;
+            entity.UserID = message.FromUserId;
+        }
+
         public Task<int> GetUnreadCount(int userId)
         {
             using (var entities = new Entities())
@@ -41,7 +42,7 @@ namespace WebAuto.DataAccess.EntityFramework
                 return Task.FromResult(count);
             }
         }
-        //Список всех сообщений по Id
+
         public async Task<List<DataAccess.Message>> GetInboxMessages(int userId)
         {
             using (var entities = new Entities())
@@ -58,7 +59,7 @@ namespace WebAuto.DataAccess.EntityFramework
                 return inboxMessages;
             }
         }
-        //переделываем сообщение из бд в местный формат
+
         private static DataAccess.Message GetMessageFromEntity(Message entity)
         {
             return
@@ -74,7 +75,7 @@ namespace WebAuto.DataAccess.EntityFramework
                     FromUserId = entity.UserID
                 };
         }
-        //Прочитать сообщения по id?
+
         public async Task ReadInboxMessages(int userId)
         {
             using (var entities = new Entities())
@@ -85,13 +86,12 @@ namespace WebAuto.DataAccess.EntityFramework
                 foreach (var message in messages)
                 {
                     message.Viewed = true;
-                    message.DateViewed = DateTime.Now;
                 }
 
                 await entities.SaveChangesAsync();
             }
         }
-        //Присваиваем сообщения к юзеру через номер авто
+
         public async Task AddMessagesToUser(int userId)
         {
             using (var entities = new Entities())
@@ -108,13 +108,12 @@ namespace WebAuto.DataAccess.EntityFramework
                 foreach (var message in messages)
                 {
                     message.ReceiverID = userId;
-                    message.DateViewed = DateTime.Now;
                 }
 
                 await entities.SaveChangesAsync();
             }
         }
-        //вывод список отправленных сообщений
+
         public async Task<List<DataAccess.Message>> GetSentMessages(int userId)
         {
             using (var entities = new Entities())
@@ -129,6 +128,40 @@ namespace WebAuto.DataAccess.EntityFramework
                     .ToList();
 
                 return sentMessages;
+            }
+        }
+
+
+        public async Task<DataAccess.Message> FindById(int messageId)
+        {
+            using (var entities = new Entities())
+            {
+                var message = await GetMessageFromDatabase(entities, messageId);
+                if (message == null)
+                {
+                    return null;
+                }
+                return GetMessageFromEntity(message);
+            }
+        }
+
+        private static Task<Message> GetMessageFromDatabase(Entities entities, int messageId)
+        {
+            return entities.Message
+                .FirstOrDefaultAsync(m => m.MessageID == messageId);
+        }
+
+        public async Task UpdateAsync(DataAccess.Message message)
+        {
+            using (var entities = new Entities())
+            {
+                var messageFromDatabase = await GetMessageFromDatabase(entities, message.Id);
+                if (messageFromDatabase == null)
+                {
+                    return;
+                }
+                UpdateEntityFromMessage(messageFromDatabase, message);
+                await entities.SaveChangesAsync();
             }
         }
     }

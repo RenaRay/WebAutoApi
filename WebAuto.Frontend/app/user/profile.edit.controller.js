@@ -21,7 +21,7 @@
             firstName: '',
             lastName: '',
             email: '',
-            phone: '',
+            //phone: '',
             avatar: null,
             cars: []
         };
