@@ -41,13 +41,24 @@ namespace WebAuto.DataAccess.EntityFramework
                     Email = carOwner.Email,
                     FirstName = carOwner.FirstName,
                     LastName = carOwner.LastName,
+                    AvatarId = carOwner.Avatar,
+                    RegDate = carOwner.regdate,
+                    FirstLicenseDate = carOwner.FirstLicenseDate,
+                    MaritalStatus = Convert.ToChar(carOwner.MaritalStatus),
+                    Occupation = carOwner.Occupation,
+                    BirthDate = carOwner.BirthDate,
+                    Gender = Convert.ToChar(carOwner.Gender),
+                    HairColor = carOwner.HairColor,
                     Cars = carOwner.Car.Select(c =>
                         new WebAuto.DataAccess.Car
                         {
                             Id = c.CarID,
                             Model = c.Model,
                             Vendor = c.Brand,
-                            Plate = c.RegNumber
+                            Plate = c.RegNumber,
+                            Color = c.Color,
+                            Country = c.Country,
+                            Conflict = c.Conflict
                         })
                         .ToList()
                 };
@@ -92,19 +103,26 @@ namespace WebAuto.DataAccess.EntityFramework
             carOwner.Email = user.Email;
             carOwner.FirstName = user.FirstName;
             carOwner.LastName = user.LastName;
-            
+            carOwner.Avatar = user.AvatarId;
+            carOwner.BirthDate = user.BirthDate;
+            carOwner.FirstLicenseDate = user.FirstLicenseDate;
+            carOwner.Gender = Convert.ToString(user.Gender);
+            carOwner.HairColor = user.HairColor;
+            carOwner.MaritalStatus = Convert.ToString(user.MaritalStatus);
+            carOwner.Occupation = user.Occupation;
+
             if (carOwner.Car == null)
             {
                 carOwner.Car = new List<Car>();
             }
             //обновляем автомобили(для каждого авто CarOwner'а: находим у user'а автомобиль по идентификатору авто CarOwner'а и перезаписываем все свойства авто)
-            for (var i = 0; i < carOwner.Car.Count; i++ )
+            for (var i = 0; i < carOwner.Car.Count; i++)
             {
                 var carOwnerCar = carOwner.Car.ElementAt(i);
                 var userCar = user.Cars.FirstOrDefault(c => c.Id == carOwnerCar.CarID);
                 if (userCar != null)
                 {
-                    //перезаписать все свойства
+                    //перезаписываем все свойства
                     UpdateCarOwnerCarFromUserCar(carOwnerCar, userCar);
                 }
                 else//удаляем автомобили
@@ -112,23 +130,27 @@ namespace WebAuto.DataAccess.EntityFramework
                     carOwner.Car.Remove(carOwnerCar);
                 }
             }
-            
+
             //добавляем CarOwner'у все автомобили user'а, у которых нет идентификатора(<1)
-            foreach(var userCar in user.Cars.Where(c => c.Id < 1))
+            foreach (var userCar in user.Cars.Where(c => c.Id < 1))
             {
                 var carOwnerCar = new Car();
                 UpdateCarOwnerCarFromUserCar(carOwnerCar, userCar);
                 carOwner.Car.Add(carOwnerCar);
             }
         }
-
+        //обновляем информацию о машине
         private static void UpdateCarOwnerCarFromUserCar(Car carOwnerCar, DataAccess.Car userCar)
         {
             carOwnerCar.Model = userCar.Model;
             carOwnerCar.Brand = userCar.Vendor;
             carOwnerCar.RegNumber = userCar.Plate;
+            carOwnerCar.Country = userCar.Country;
+            carOwnerCar.Color = userCar.Color;
+            carOwnerCar.Conflict = userCar.Conflict;
+
         }
-        
+
         public async Task UpdateAsync(User user)
         {
             using (var entities = new Entities())

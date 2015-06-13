@@ -17,7 +17,10 @@ namespace WebAuto.Backend.Extensions
                     Id = car.Id,
                     Plate = car.Plate,
                     Vendor = car.Vendor,
-                    Model = car.Model
+                    Model = car.Model,
+                    Color = car.Color,
+                    Conflict = car.Conflict,
+                    Country = car.Country
                 };
         }
 
@@ -33,7 +36,10 @@ namespace WebAuto.Backend.Extensions
                     Id = car.Id,
                     Plate = car.Plate.ToUpper(),
                     Vendor = car.Vendor,
-                    Model = car.Model
+                    Model = car.Model,
+                    Color = car.Color,
+                    Conflict = car.Conflict,
+                    Country = car.Country
                 };
         }
     }

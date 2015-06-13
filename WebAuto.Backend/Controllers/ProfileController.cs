@@ -69,12 +69,17 @@ namespace WebAuto.Backend.Controllers
             {
                 return NotFound();
             }
-            
+
             user.FirstName = model.FirstName;
             user.LastName = model.LastName;
             user.Email = model.Email;
-            user.Phone = model.Phone;
+            user.BirthDate = model.BirthDate;
             user.AvatarId = model.Avatar;
+            user.FirstLicenseDate = model.FirstLicenseDate;
+            user.Gender = model.Gender;
+            user.HairColor = model.HairColor;
+            user.MaritalStatus = model.MaritalStatus;
+            user.Occupation = model.Occupation;
             var cars = model.Cars ?? Enumerable.Empty<CarModel>();
             user.Cars = cars
                 .Where(car =>
