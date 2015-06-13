@@ -122,7 +122,7 @@ namespace WebAuto.DataAccess.EntityFramework
                 var userCar = user.Cars.FirstOrDefault(c => c.Id == carOwnerCar.CarID);
                 if (userCar != null)
                 {
-                    //перезаписать все свойства
+                    //перезаписываем все свойства
                     UpdateCarOwnerCarFromUserCar(carOwnerCar, userCar);
                 }
                 else//удаляем автомобили
@@ -147,7 +147,7 @@ namespace WebAuto.DataAccess.EntityFramework
             carOwnerCar.RegNumber = userCar.Plate;
             carOwnerCar.Country = userCar.Country;
             carOwnerCar.Color = userCar.Color;
-            carOwnerCar.Conflict = userCar.Country;
+            carOwnerCar.Conflict = userCar.Conflict;
 
         }
 
