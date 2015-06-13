@@ -12,10 +12,19 @@ using System.Web.Http;
 using Unity.WebApi;
 using WebAuto.Backend.Middleware;
 
-[assembly: OwinStartup(typeof(WebAuto.Backend.Startup))]
+
+[assembly: OwinStartup(typeof(WebAuto.Backend.Startup))] //атрибут, с пмощиью которого класс инициализируется один раз, при старте приложения
 namespace WebAuto.Backend
 {
     public class Startup
+
+    //это стандартный для asp.net web api класс, в котором описаны все настройки бэкенда
+    //1. ConfigureContainer - настройка контейнера(Unity Container)
+    //2. ConfigureMiddleware - настройка обработчиков middleware(локализация)
+    //3. ConfigureOAuth - настройка аутентификации(OAuth)
+    //4. ConfigureRoutes - настройка маршрутов(routing) по умолчанию
+    //5. ConfigureFormatters - настройка форматирования json
+
     {
         public void Configuration(IAppBuilder app)
         {
@@ -34,6 +43,9 @@ namespace WebAuto.Backend
 
         private static UnityContainer ConfigureContainer(HttpConfiguration config)
         {
+            //зависимости регистрируются в web.config
+            //в asp.net web api есть поддержка разрешения зависимостей с помощью dependencyResolver'а
+            //мы просто подсказываем asp.net web api, что для разрешения зависимостей нужно использовать unity
             var container = new UnityContainer();
             container.LoadConfiguration("default");
             config.DependencyResolver = new UnityDependencyResolver(container);

@@ -9,6 +9,21 @@ using System.Web;
 
 namespace WebAuto.Backend.Middleware
 {
+    //этот класс берет из хэдера языковые настройки(название культуры) и 
+    //устанавливает культуру по умолчанию void SetThreadCulture(string culture)
+    //дальше работает сам .net framework
+    //засчет того, что сообщения об ошибках валидации хранятся в ресурсных файлах,
+    //в итоге для пользователей с англ. культурой сообщения отображаются на анг. языке
+    //для пользователей с рус. культурой - на русском
+
+    //до обработки запроса кодом нашего бэкенда запрос проходит через обработку с помощью middleware
+    //middleware используют для добавления сквозного функционала, т.е. кода, который будет выполняться для всех методов бэкенда
+    //например: логирование, аутентификация, обработка ошибок
+    //у нас используется для настройки языка по умолчанию
+    //если в приложении используется несколько обработчиков Middleware, то они выполняются последовательно друг за другом
+    //в нашем коде: await this.Next.Invoke(context); - это указатель на следующий обработчик в цепочке middleware
+    //мы передаем обработку запроса следующему middleware в списке
+
     public class GlobalizationMiddleware : OwinMiddleware
     {
         private readonly GlobalizationMiddlewareOptions _options;
@@ -34,6 +49,7 @@ namespace WebAuto.Backend.Middleware
         private string GetCultureFromRequestHeaders(IOwinContext context)
         {
             string[] acceptLanguageHeaders;
+            //определение языка, на котором пользователю надо показывать сообщения об ошибках
             if (!context.Request.Headers.TryGetValue("Accept-Language", out acceptLanguageHeaders))
             {
                 return null;
